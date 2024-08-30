@@ -3,26 +3,19 @@
   "rules": [
     {
       "domain": [
-        "weixinsxy.com",
-        "wxapp.tc.qq.com"
+        "blog.501388.xyz"
       ]
     },
     {
       "domain_suffix": [
-        ".weixinsxy.com",
-        ".wxapp.tc.qq.com"
+        ".501388.xyz",
+        ".zjzzy.cloudns.org"
       ]
     },
     {
       "domain_keyword": [
-        "cherrytv",
-        "cherr"
-      ]
-    },
-    {
-      "ip_cidr": [
-        "129.226.3.47/32",
-        "162.62.163.63/32"
+        "501388",
+        "zjzzy"
       ]
     }
   ]
