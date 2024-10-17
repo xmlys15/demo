@@ -8,7 +8,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "https://hutaod.com/link/gpoDGU7J10ZU2I9x?clash=1"
+    url: "订阅"
   Airport_02:
     type: http
     interval: 86400
@@ -17,7 +17,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "https://us.zjzzy.cloudns.org:18481/s/default/acdb6921399e2bf075e794b849a5ac8c"
+    url: "订阅"
       
 # 用于下载订阅时指定UA
 global-ua: clash
