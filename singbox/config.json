@@ -99,7 +99,7 @@
       { "rule_set": "geosite-instagram", "outbound": "👄 Instagram" },
       { "rule_set": ["geosite-oracle"], "outbound": "🐢 Oracle" },
       { "rule_set": ["geosite-amazon"], "outbound": "🐴️ Amazon" },
-      { "rule_set": ["geoip-apple", "geosite-apple"], "outbound": "🍎 Apple" },
+      { "rule_set": ["geosite-apple"], "outbound": "🍎 Apple" },
       { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 节点选择" },
       { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🟢 全球直连" }
     ],
