@@ -28,7 +28,9 @@
       {
         "tag": "proxyDns",
         "address": "tls://8.8.8.8",
-        "detour": "🚀 节点选择"        
+        "address_resolver": "localDns",
+        "address_strategy": "ipv4_only",
+        "detour": "🚀 节点选择"
       },
       {
         "tag": "localDns",
@@ -46,7 +48,7 @@
         "server": "localDns"
       },
       {
-        "clash_mode": "🟢 全球直连",
+        "clash_mode": "direct",
         "server": "localDns"
       },
       {
@@ -70,6 +72,10 @@
         "mode": "and",
         "rules": [
           {
+            "rule_set": "geosite-geolocation-!cn",
+            "invert": true
+          },
+          {
             "rule_set": "geoip-cn"
           }
         ],
@@ -84,7 +90,6 @@
         "server": "fakeip"
       }
     ],
-    "final": "localDns",
     "independent_cache": true,
     "strategy": "prefer_ipv4"
   },
@@ -137,8 +142,8 @@
   ],
   
   "route": {
-        "auto_detect_interface": true,
-        "final": "🐟 漏网之鱼",
+    "auto_detect_interface": true,
+     "final": "🐟 漏网之鱼",
     "rules": [
       {
         "type": "logical",
@@ -212,8 +217,8 @@
       {
         "tag": "myself",
         "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.srs",
+        "format": "source",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json",
         "download_detour": "🟢 全球直连"
       },
       {
