@@ -5,7 +5,7 @@
   },
   "experimental": {
     "clash_api": {
-      "external_controller": "127.0.0.1:9090",
+      "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
       "secret": "",
       "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
@@ -55,14 +55,14 @@
       "platform": {
         "http_proxy": {
           "enabled": true,
-          "server": "127.0.0.1",
+          "server": "0.0.0.0",
           "server_port": 7890
         }
       }
     },
     {
       "type": "mixed",
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 7890,
       "sniff": true,
       "users": []
@@ -85,7 +85,6 @@
     { "tag": "🇹🇼 台湾节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["台|tw"] }] },
     { "tag": "🚩 全部节点" , "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "exclude","keywords": ["剩|过|直"] }]},
     { "tag": "🐟 漏网之鱼", "type": "selector", "outbounds": ["🚀 节点选择","🙋‍♂️ 自建节点","🇺🇲 美国节点" ,"🇯🇵 日本节点" ,"🇭🇰 香港节点" ,"🇸🇬 新加坡节点" ,"🇹🇼 台湾节点","🟢 全球直连"] },
-    { "tag": "GLOBAL", "type": "selector", "outbounds": ["🚀 节点选择","🙋‍♂️ 自建节点","🇺🇲 美国节点" ,"🇯🇵 日本节点" ,"🇭🇰 香港节点" ,"🇸🇬 新加坡节点" ,"🇹🇼 台湾节点","🟢 全球直连"] },
     { "tag": "🟢 全球直连", "type": "direct" },
     { "tag": "dns-out", "type": "dns" }
   ],
@@ -96,7 +95,7 @@
     "rules": [
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
       { "clash_mode": "direct", "outbound": "🟢 全球直连" },
-      { "clash_mode": "global", "outbound": "GLOBAL" },
+      { "clash_mode": "global", "outbound": "🐟 漏网之鱼" },
       { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🟢 全球直连" },
       { "ip_is_private": true, "outbound": "🟢 全球直连" },
       {
