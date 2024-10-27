@@ -192,11 +192,11 @@
         "outbound": "👄 Instagram"
       },
       {
-        "rule_set": ["geosite-oracle"],
+        "rule_set": "geosite-oracle",
         "outbound": "🐢 Oracle"
       },
       {
-        "rule_set": ["geosite-amazon"],
+        "rule_set": "geosite-amazon",
         "outbound": "🐴️ Amazon"
       },
       {
