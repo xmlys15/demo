@@ -212,8 +212,8 @@
       {
         "tag": "myself",
         "type": "remote",
-        "format": "source",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.srs",
         "download_detour": "🟢 全球直连"
       },
       {
