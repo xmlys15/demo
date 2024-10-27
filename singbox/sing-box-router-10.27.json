@@ -137,6 +137,7 @@
     { "tag": "🇹🇼 台湾节点", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["台|tw"] }] },
     { "tag": "🚩 全部节点" , "type": "selector", "outbounds": ["{all}"], "filter": [{ "keywords": ["^(?!.*(剩|过|直)).*$"] }]},
     { "tag": "🐟 漏网之鱼", "type": "selector", "outbounds": ["🚀 节点选择","🙋‍♂️ 自建节点","🇺🇲 美国节点" ,"🇯🇵 日本节点" ,"🇭🇰 香港节点" ,"🇸🇬 新加坡节点" ,"🇹🇼 台湾节点","🟢 全球直连"] },
+    { "tag": "GLOBAL", "type": "selector", "outbounds": ["🚀 节点选择","🙋‍♂️ 自建节点","🇺🇲 美国节点" ,"🇯🇵 日本节点" ,"🇭🇰 香港节点" ,"🇸🇬 新加坡节点" ,"🇹🇼 台湾节点","🟢 全球直连"] },
     { "tag": "🟢 全球直连", "type": "direct" },
     { "tag": "dns-out", "type": "dns" }
   ],
@@ -250,31 +251,36 @@
       },
       {
         "tag": "geosite-amazon",
-        "type": "remote", "format": "binary",
+        "type": "remote",
+        "format": "binary",
         "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/amazon.srs",
         "download_detour": "🟢 全球直连"
       },
       {
         "tag": "geosite-apple",
-        "type": "remote", "format": "binary",
+        "type": "remote",
+        "format": "binary",
         "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
         "download_detour": "🟢 全球直连"
       },
       {
         "tag": "geosite-geolocation-!cn",
-        "type": "remote", "format": "binary",
+        "type": "remote",
+        "format": "binary",
         "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "🟢 全球直连"
       },
       {
         "tag": "geoip-cn",
-        "type": "remote", "format": "binary",
+        "type": "remote",
+        "format": "binary",
         "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
         "download_detour": "🟢 全球直连"
       },
       {
         "tag": "geosite-cn",
-        "type": "remote", "format": "binary",
+        "type": "remote",
+        "format": "binary",
         "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
         "download_detour": "🟢 全球直连"
       }
