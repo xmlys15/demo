@@ -2,24 +2,12 @@
   "version": 1,
   "rules": [
     {
-      "domain": [
-        "blog.501388.xyz"
-      ]
-    },
-    {
       "domain_suffix": [
         "665080.xyz",
         "501388.xyz",
         "zjzzy.cloudns.org",
-        "nino.nyc.mn"
-      ]
-    },
-    {
-      "domain_keyword": [
-        "665080",
-        "501388",
-        "nino",
-        "zjzzy"
+        "nino.nyc.mn",
+        "preston.us.kg"
       ]
     }
   ]
