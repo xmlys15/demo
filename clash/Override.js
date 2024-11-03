@@ -88,7 +88,7 @@ function main(config) {
       ...groupBaseOption,
       "name": "节点选择",
       "type": "select",
-      "proxies": ["自建节点","香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["自建节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "include-all": true,
       "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pydio.png"
     },
@@ -96,49 +96,49 @@ function main(config) {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     {
       ...groupBaseOption,
       "name": "Onedrive",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png"
     },    
     {
       ...groupBaseOption,
       "name": "Apple",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png"
     },
     {
       ...groupBaseOption,
       "name": "Oracle",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/Oracle.png"
     },
     {
       ...groupBaseOption,
       "name": "Amazon",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/AWS.png"
     },
     {
       ...groupBaseOption,
       "name": "兜底分流",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"
     },
     // 地区分组
@@ -170,7 +170,7 @@ function main(config) {
     },
     {
       ...groupBaseOption,
-      "name": "狮城节点",
+      "name": "新加坡节点",
       "type": "url-test",
       "tolerance": 0,
       "include-all": true,
