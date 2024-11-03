@@ -248,7 +248,7 @@ function main(config) {
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.yaml",
       "path": "./rules/amazon_domain.yaml"
     },
-    "geolocation-!cn": {
+    "geolocation_!cn": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml",
