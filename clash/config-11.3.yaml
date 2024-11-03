@@ -1,0 +1,176 @@
+# 机场订阅，名称不能重复
+proxy-providers:
+  Airport_01:
+    type: http
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢直连
+    url: "订阅链接"
+
+      
+# 用于下载订阅时指定UA
+global-ua: clash.meta
+    
+# 全局配置
+port: 7890
+socks-port: 7891
+mixed-port: 7892
+redir-port: 7893
+tproxy-port: 7894
+ipv6: false
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+  
+geodata-mode: false
+# GEO 文件加载模式（standard：标准加载器/memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)）
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 48
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+  asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+  
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: "123456"
+external-ui: ui
+external-ui-url: "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+# 匹配进程 always/strict/off
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 30
+
+# 策略组选择和fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+  
+# 域名嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    
+# 代理模式
+tun:
+  enable: true
+  stack: mixed
+  mtu: 9000
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  
+# DNS模块
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true
+  # 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.1/8
+  # 模式切换 whitelist/blacklist 
+  # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    # - "*"                        # 匹配所有域名
+    # - "+.lan"                    # 本地局域网域名
+    # - "+.local"                  # 本地域名
+    # - "+.direct"                 # .direct 后缀的域名
+    - "+.msftconnecttest.com"    # Windows 网络连接测试
+    - "+.msftncsi.com"           # Windows 网络连接测试
+    - "rule-set:private_domain,cn_domain,oracle_domain,apple_domain,direct_myself"     #规则直连
+  default-nameserver:
+    - 221.12.1.227
+    - 221.12.33.227
+  proxy-server-nameserver:
+    - 221.12.1.227
+    - 221.12.33.227
+  nameserver:
+    - 221.12.1.227
+    - 221.12.33.227
+  nameserver-policy:
+    "rule-set:private_domain,cn_domain":
+    - 221.12.1.227
+    - 221.12.33.227
+    "rule-set:geolocation_!cn":
+      - "dot.sb"
+      - "1dot1dot1dot1.cloudflare-dns.com"
+
+         
+proxies:
+- name: "🟢直连"
+  type: direct
+  udp: true
+
+# 策略组
+proxy-groups:
+  - {name: 节点选择, type: select, proxies: [自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/ariang.png"}
+  - {name: Openai,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"}
+  - {name: Instagram,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"}
+  - {name: Onedrive,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png"}
+  - {name: Oracle,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/Oracle.png"}
+  - {name: Apple,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png"}
+  - {name: Amazon,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/AWS.png"}
+  - {name: 兜底分流,type: select, proxies: [节点选择,自建节点,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🟢直连],"icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
+  - {name: 全部节点,type: select, include-all: true, filter: "^(?!.*(剩|过|直)).*$","icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/statping-ng.png"}
+  - {name: 自建节点,type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Ox.png"}
+  - {name: 台湾节点,type: select, include-all: true, filter: "(?i)台|tw|台湾","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"}
+  - {name: 新加坡节点,type: select, include-all: true, filter: "(?i)新|sg|sgp","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
+  - {name: 香港节点,type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"}
+  - {name: 日本节点,type: select, include-all: true, filter: "(?i)日|jp|japan","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"}
+  - {name: 美国节点,type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"}
+rules:
+  - RULE-SET,private_domain,🟢直连
+  - RULE-SET,direct_myself,🟢直连
+  - RULE-SET,openai_domain,Openai
+  - RULE-SET,instagram_domain,Instagram
+  - RULE-SET,onedrive_domain,Onedrive
+  - RULE-SET,oracle_domain,Oracle
+  - RULE-SET,apple_domain,Apple
+  - RULE-SET,amazon_domain,Amazon
+  - RULE-SET,geolocation_!cn,节点选择
+  - RULE-SET,cn_domain,🟢直连
+  - RULE-SET,cn_ip,🟢直连
+  - MATCH,兜底分流
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+  myself: &myself {type: http, interval: 86400, behavior: domain, format: yaml}
+rule-providers:
+  direct_myself: { !!merge <<: *myself, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/xmlys15/demo/refs/heads/master/clash/mydirect.yaml" }
+  private_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
+  openai_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs" }
+  instagram_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs" }
+  onedrive_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs" }
+  oracle_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.mrs" }
+  apple_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs" }
+  amazon_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.mrs" }
+  geolocation_!cn: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
+  cn_domain: { !!merge <<: *domain, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
+
+  cn_ip: { !!merge <<: *ip, url: "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
