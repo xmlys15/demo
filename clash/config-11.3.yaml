@@ -19,7 +19,7 @@ port: 7890
 socks-port: 7891
 mixed-port: 7892
 redir-port: 7893
-tproxy-port: 7894
+tproxy-port: 7895
 ipv6: false
 allow-lan: true
 unified-delay: true
@@ -38,7 +38,7 @@ geox-url:
   
 # 控制面板
 external-controller: 0.0.0.0:9090
-secret: "123456"
+secret: ""
 external-ui: ui
 external-ui-url: "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
 
@@ -105,21 +105,21 @@ dns:
     - "+.msftncsi.com"           # Windows 网络连接测试
     - "rule-set:private_domain,cn_domain,oracle_domain,apple_domain,direct_myself"     #规则直连
   default-nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   proxy-server-nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
     "rule-set:geolocation_!cn":
-      - "dot.sb"
-      - "1dot1dot1dot1.cloudflare-dns.com"
+    - "dot.sb"
+    - "1dot1dot1dot1.cloudflare-dns.com"
 
          
 proxies:
