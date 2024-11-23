@@ -73,14 +73,7 @@
       "listen_port": 7895,
       "tcp_fast_open": true,
       "udp_fragment": true,
-      "sniff": true,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "0.0.0.0",
-          "server_port": 7890
-        }
-      }
+      "sniff": true
     },
     {
       "type": "mixed",
