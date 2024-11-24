@@ -105,18 +105,18 @@ dns:
     - "+.msftncsi.com"           # Windows 网络连接测试
     - "rule-set:private_domain,cn_domain,oracle_domain,apple_domain,direct_myself"     #规则直连
   default-nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   proxy-server-nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver:
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
-    - 221.12.1.227
-    - 221.12.33.227
+    - 223.5.5.5
+    - 119.29.29.29
     "rule-set:geolocation_!cn":
       - "dot.sb"
       - "1dot1dot1dot1.cloudflare-dns.com"

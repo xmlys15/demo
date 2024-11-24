@@ -45,7 +45,7 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter": ["+.msftconnecttest.com", "+.msftncsi.com","rule-set:private_domain,cn_domain,oracle_domain,apple_domain,myself"],
-    "nameserver": ["221.12.1.227", "221.12.33.227"]
+    "nameserver": ["223.5.5.5", "119.29.29.29"]
   };
 
   // 覆盖 geodata 配置
