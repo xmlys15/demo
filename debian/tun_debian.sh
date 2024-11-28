@@ -15,19 +15,13 @@ fi
 sudo systemctl stop sing-box
 
 # 配置参数
-BACKEND_URL="http://192.168.10.12:5000"  # 转换后端地址
-SUBSCRIPTION_URL=""  # 订阅地址
-TEMPLATE_URL="https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/master/config/singbox/config_tun.json"  # 配置文件（规则模板)
+SINGBOX_USER=$(systemctl show -p User sing-box | cut -d= -f2)  # 获取 sing-box 服务的运行用户
+TPROXY_PORT=7895  # sing-box tproxy 端口，和配置文件（规则模板）里的端口一致！
+PROXY_FWMARK=1
+PROXY_ROUTE_TABLE=100
 
-# 检查 sing-box 服务状态和执行权限
-if ! command -v sing-box &> /dev/null; then
-    echo "错误: sing-box 未安装"
-    exit 1
-fi
-
-
-# 构建完整的URL
-FULL_URL="${BACKEND_URL}/config/${SUBSCRIPTION_URL}&file=${TEMPLATE_URL}"
+# 使用完整的订阅链接
+FULL_URL="你的完整订阅链接"
 
 # 确保目录存在
 if [ ! -d "/etc/sing-box" ]; then
