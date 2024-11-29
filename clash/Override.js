@@ -124,14 +124,14 @@ function main(config) {
       "name": "Oracle",
       "type": "select",
       "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/Oracle.png"
+      "icon": "https://image.501388.xyz/i/2024/11/29/6749874f1767c.png"
     },
     {
       ...groupBaseOption,
       "name": "Amazon",
       "type": "select",
       "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Dark/AWS.png"
+      "icon": "https://image.501388.xyz/i/2024/11/29/6749874f7c6d6.png"
     },
     {
       ...groupBaseOption,
