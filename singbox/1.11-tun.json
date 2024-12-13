@@ -35,10 +35,6 @@
     ],
     "rules": [
         {
-        "rule_set": "geosite-category-ads-all",        
-        "action": "reject"
-        },
-        {
         "outbound": "any",        
         "server": "localDns",
         "disable_cache": true
@@ -133,7 +129,6 @@
       
       "rule_set": [
         { "tag": "myself", "type": "remote", "format": "source", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json", "download_detour": "🌎️ 全球直连" },
-        { "tag": "geosite-category-ads-all", "type": "remote", "format": "binary", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs", "download_detour": "🌎️ 全球直连" },
         { "tag": "geosite-openai", "type": "remote", "format": "binary", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/OpenAI.srs", "download_detour": "🌎️ 全球直连" },
         { "tag": "geosite-instagram", "type": "remote", "format": "binary", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/instagram.srs", "download_detour": "🌎️ 全球直连" },
         { "tag": "geosite-oracle", "type": "remote", "format": "binary", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/oracle.srs", "download_detour": "🌎️ 全球直连" },
