@@ -8,7 +8,7 @@
     "experimental": {
       "clash_api": {
         "external_controller": "0.0.0.0:9090",
-        "external_ui": "ui",
+        "external_ui": "/etc/sing-box/ui",
         "secret": "",
         "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
         "external_ui_download_detour": "🌎️ 全球直连",
@@ -16,6 +16,7 @@
       },
       "cache_file": {
         "enabled": true,
+        "path": "/etc/sing-box/cache.db",
         "store_fakeip": false
       }
     },
@@ -70,8 +71,8 @@
         "inet4_address": "172.19.0.1/30",
         "mtu": 9000,
         "auto_route": true,
+        "auto_redirect": true,
         "strict_route": true,
-
         "stack": "system",
         "platform": {
           "http_proxy": {
@@ -111,13 +112,13 @@
     ],
     
     "route": {
-          "auto_detect_interface": true,
-          "final": "🐟 漏网之鱼",
+      "auto_detect_interface": true,
+      "final": "🐟 漏网之鱼",
       "rules": 
       [
         {"action": "sniff"},
         {"protocol": "dns", "action": "hijack-dns"},
-        { "rule_set": "geosite-category-ads-all","action": "reject" },
+        { "rule_set": "geosite-category-ads-all","action": "reject"},
         { "clash_mode": "direct", "outbound": "🌎️ 全球直连" },
         { "clash_mode": "global", "outbound": "GLOBAL" },
         { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🌎️ 全球直连" },
