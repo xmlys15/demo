@@ -39,34 +39,28 @@
     ],
     "rules": [
         {
-        "rule_set": "geosite-category-ads-all",
-        "action": "route",
+        "rule_set": "geosite-category-ads-all",        
         "server": "block"
         },
         {
-        "outbound": "any",
-        "action": "route",
+        "outbound": "any",        
         "server": "localDns",
         "disable_cache": true
         },
         {
-        "rule_set": "geosite-cn",
-        "action": "route",
+        "rule_set": "geosite-cn",        
         "server": "localDns"
         },   
         {
-        "clash_mode": "direct",
-        "action": "route",
+        "clash_mode": "direct",        
         "server": "localDns"
         },
         {
-        "clash_mode": "global",
-        "action": "route",
+        "clash_mode": "global",        
         "server": "proxyDns"
         },
         {
-        "rule_set": "geosite-geolocation-!cn",
-        "action": "route",
+        "rule_set": "geosite-geolocation-!cn",        
         "server": "proxyDns"
         }
     ],
@@ -81,8 +75,7 @@
         "mtu": 9000,
         "auto_route": true,
         "strict_route": true,
-        "sniff": true,
-        "endpoint_independent_nat": false,
+
         "stack": "system",
         "platform": {
           "http_proxy": {
@@ -96,7 +89,6 @@
         "type": "mixed",
         "listen": "127.0.0.1",
         "listen_port": 7890,
-        "sniff": true,
         "users": []
       }
     ],
@@ -129,20 +121,20 @@
       [
         {"action": "sniff"},
         {"protocol": "dns", "action": "hijack-dns"},
-        { "rule_set": "geosite-category-ads-all","action": "route","outbound": "⛔ 全球拦截" },
-        { "clash_mode": "direct","action": "route", "outbound": "🌎️ 全球直连" },
-        { "clash_mode": "global", "action": "route","outbound": "GLOBAL" },
-        { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "action": "route","outbound": "🌎️ 全球直连" },
-        { "ip_is_private": true,"action": "route", "outbound": "🌎️ 全球直连" },
+        { "rule_set": "geosite-category-ads-all","outbound": "⛔ 全球拦截" },
+        { "clash_mode": "direct", "outbound": "🌎️ 全球直连" },
+        { "clash_mode": "global", "outbound": "GLOBAL" },
+        { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🌎️ 全球直连" },
+        { "ip_is_private": true, "outbound": "🌎️ 全球直连" },
         {"rule_set": "myself","outbound": "🌎️ 全球直连"},
-        { "rule_set": "geosite-openai", "action": "route","outbound": "🤖 OpenAI" },
-        { "rule_set": "geosite-instagram", "action": "route","outbound": "👄 Instagram" },
-        { "rule_set": "geosite-onedrive", "action": "route","outbound": "🛍️ Onedrive" },
-        { "rule_set": "geosite-oracle", "action": "route","outbound": "🐢 Oracle" },
-        { "rule_set": "geosite-amazon", "action": "route","outbound": "🐴️ Amazon" },
-        { "rule_set": "geosite-apple", "action": "route","outbound": "🍎 Apple" },
-        { "rule_set": "geosite-geolocation-!cn","action": "route", "outbound": "🚀 节点选择" },
-        { "rule_set": ["geoip-cn", "geosite-cn"], "action": "route","outbound": "🌎️ 全球直连" }
+        { "rule_set": "geosite-openai", "outbound": "🤖 OpenAI" },
+        { "rule_set": "geosite-instagram", "outbound": "👄 Instagram" },
+        { "rule_set": "geosite-onedrive", "outbound": "🛍️ Onedrive" },
+        { "rule_set": "geosite-oracle", "outbound": "🐢 Oracle" },
+        { "rule_set": "geosite-amazon", "outbound": "🐴️ Amazon" },
+        { "rule_set": "geosite-apple", "outbound": "🍎 Apple" },
+        { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 节点选择" },
+        { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🌎️ 全球直连" }
       ],
       
       "rule_set": [
@@ -159,5 +151,4 @@
         { "tag": "geosite-cn", "type": "remote", "format": "binary", "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "🌎️ 全球直连" }
       ]
     }
-  }
-  
+  } 
