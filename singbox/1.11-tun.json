@@ -45,6 +45,12 @@
         "disable_cache": true
         },
         {
+          "rule_set": "geosite-category-ads-all",
+          "action": "reject",
+          "method": "default",
+          "no_drop": false
+        },
+        {
         "rule_set": "geosite-cn",        
         "server": "localDns"
         },   
@@ -86,7 +92,6 @@
         "type": "mixed",
         "listen": "127.0.0.1",
         "listen_port": 7890,
-        "sniff": true,
         "users": []
       }
     ],
@@ -118,7 +123,11 @@
       [
         {"action": "sniff"},
         {"protocol": "dns", "action": "hijack-dns"},
-        { "rule_set": "geosite-category-ads-all","action": "reject"},
+        { "rule_set": "geosite-category-ads-all",
+          "action": "reject",
+          "method": "default",
+          "no_drop": false
+        },
         { "clash_mode": "direct", "outbound": "🌎️ 全球直连" },
         { "clash_mode": "global", "outbound": "GLOBAL" },
         { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🌎️ 全球直连" },
