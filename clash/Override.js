@@ -31,7 +31,7 @@ function main(config) {
   config["mixed-port"] = "7890";
   config["tcp-concurrent"] = true;
   config["allow-lan"] = true;
-  config["ipv6"] = false;
+  config["ipv6"] = true;
   config["log-level"] = "info";
   config["unified-delay"] = "true";
   config["find-process-mode"] = "strict";
@@ -44,7 +44,7 @@ function main(config) {
     "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["+.msftconnecttest.com", "+.msftncsi.com","rule-set:private_domain,cn_domain,oracle_domain,apple_domain,myself"],
+    "fake-ip-filter": ["+.lan","+.local","localhost.ptlogin2.qq.com","+.direct","+.msftconnecttest.com", "+.msftncsi.com"],
     "nameserver": ["223.5.5.5", "119.29.29.29"]
   };
 
@@ -89,7 +89,7 @@ function main(config) {
       "name": "节点选择",
       "type": "select",
       "proxies": ["自建节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pydio.png"
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/lighttpd.png"
     },
     {
       ...groupBaseOption,
@@ -147,7 +147,7 @@ function main(config) {
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Ox.png"
+      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"
     },
     {
       ...groupBaseOption,
@@ -192,7 +192,7 @@ function main(config) {
       "tolerance": 0,
       "include-all": true,
       "filter": "(?i)台湾|(\b(TW|Tai|Taiwan)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"
+      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"
     }
   ];
 
