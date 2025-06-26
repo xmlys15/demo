@@ -5,49 +5,51 @@
     "timestamp": true
   },
   "dns": {
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
     "servers": [
       {
-        "tag": "国内 DNS",
-        "address": "https://dns.alidns.com/dns-query",
-        "address_resolver": "CNNIC DNS",
+        "tag": "google",
+        "address": "tls://8.8.8.8",
+        "detour": "🚀 默认出站"
+      },
+      {
+        "tag": "local",
+        "address": "https://223.5.5.5/dns-query",
         "detour": "直连"
       },
       {
-        "tag": "海外 DNS",
-        "address": "https://dns.google/dns-query",
-        "address_resolver": "CNNIC DNS",
-        "detour": "🚀 默认出站"
-      },
-            {
-        "tag": "CNNIC DNS",
-        "address": "1.2.4.8",
-        "detour": "直连"
+        "tag": "fakeip",
+        "address": "fakeip"
       }
     ],
     "rules": [
       {
         "outbound": "any",
-        "action": "route",
-        "server": "国内 DNS",
-        "rewrite_ttl": 3600
+        "server": "local"
       },
       {
         "clash_mode": "direct",
-        "action": "route",
-        "server": "国内 DNS",
-        "rewrite_ttl": 3600
+        "server": "local"
       },
       {
         "clash_mode": "global",
-        "action": "route",
-        "server": "海外 DNS",
-        "rewrite_ttl": 3600
+        "server": "google"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "rule_set": "geosite-cn",
+        "server": "fakeip"
       },
       {
         "rule_set": "geosite-cn",
-        "action": "route",
-        "server": "国内 DNS",
-        "rewrite_ttl": 3600
+        "server": "local"
       },
       {
         "type": "logical",
@@ -61,32 +63,44 @@
             "rule_set": "geoip-cn"
           }
         ],
-        "server": "海外 DNS",
-        "client_subnet": "1.2.4.8/24"
+        "server": "google",
+        "client_subnet": "221.12.1.227/24"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip"
       }
     ],
-    "final": "海外 DNS",
-    "strategy": "prefer_ipv4",
-    "disable_cache": false,
-    "disable_expire": false,
+    "final": "",
     "independent_cache": true,
-    "reverse_mapping": false
+    "strategy": "prefer_ipv4"
   },
   "inbounds": [
     {
-      "type": "tun",
       "tag": "tun-in",
-      "address": ["172.18.0.1/30", "fdfe:dcba:9876::1/126"],
+      "type": "tun",
+      "address": [
+        "172.19.0.0/30",
+        "fdfe:dcba:9876::0/126"
+      ],
+      "stack": "system",
       "auto_route": true,
       "strict_route": true,
-      "endpoint_independent_nat": false,
-      "stack": "system",
-      "exclude_package": ["com.android.captiveportallogin"]
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 7890
+        }
+      }
     },
     {
-      "type": "mixed",
       "tag": "mixed-in",
-      "listen": "::",
+      "type": "mixed",
+      "listen": "127.0.0.1",
       "listen_port": 7890
     }
   ],
@@ -337,91 +351,62 @@
         "action": "reject"
       },
       {
-        "clash_mode": "direct",
-        "action": "route",
+        "clash_mode": "direct",        
         "outbound": "直连"
       },
       {
-        "clash_mode": "global",
-        "action": "route",
+        "clash_mode": "global",        
         "outbound": "🚀 默认出站"
       },
       {
-        "protocol": "bittorrent",
-        "action": "route",
+        "protocol": "bittorrent",        
         "outbound": "直连"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "downloader"
-          },
-          {
-            "rule_set": ["geoip-cn", "geosite-cn"],
-            "invert": true
-          }
-        ],
-        "action": "route",
-        "outbound": "Downloader"
-      },
-      {
-        "rule_set": "geosite_category-games@cn",
-        "action": "route",
+        "rule_set": "geosite-category-games@cn",        
         "outbound": "直连"
       },
       {
-        "ip_is_private": true,
-        "action": "route",
+        "ip_is_private": true,        
         "outbound": "直连"
       },
       {
-        "rule_set": "myself",
-        "action": "route",
+        "rule_set": "myself",        
         "outbound": "直连"
       },
       {
-        "rule_set": "geosite-openai",
-        "action": "route",
+        "rule_set": "geosite-openai",        
         "outbound": "OpenAI"
       },
       {
-        "rule_set": "geosite-instagram",
-        "action": "route",
+        "rule_set": "geosite-instagram",        
         "outbound": "Instagram"
       },
       {
-        "rule_set": "geosite-onedrive",
-        "action": "route",
+        "rule_set": "geosite-onedrive",        
         "outbound": "Onedrive"
       },
       {
-        "rule_set": "geosite-oracle",
-        "action": "route",
+        "rule_set": "geosite-oracle",        
         "outbound": "Oracle"
       },
       {
-        "rule_set": "geosite-amazon",
-        "action": "route",
+        "rule_set": "geosite-amazon",        
         "outbound": "Amazon"
       },
       {
-        "rule_set": "geosite-apple",
-        "action": "route",
+        "rule_set": ["geoip-apple","geosite-apple"],        
         "outbound": "Apple"
       },
       {
-        "rule_set": "geosite-geolocation-!cn",
-        "action": "route",
+        "rule_set": "geosite-geolocation-!cn",        
         "outbound": "🚀 默认出站"
       },
       {
         "rule_set": [
           "geoip-cn",
           "geosite-cn"
-        ],
-        "action": "route",
+        ],        
         "outbound": "直连"
       }
     ],
@@ -437,18 +422,11 @@
         "tag": "geosite-category-ads-all",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "downloader",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gitlab.com/senzyo_sama/as-gist/-/raw/master/Rule/sing-box/downloader.srs",
-        "download_detour": "直连"
-      },
-      {
-        "tag": "geosite_category-games@cn",
+        "tag": "geosite-category-games@cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
@@ -458,63 +436,70 @@
         "tag": "geosite-openai",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/OpenAI.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-instagram",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/instagram.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-oracle",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/oracle.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-onedrive",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/onedrive.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/onedrive.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-amazon",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/amazon.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-apple",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+        "download_detour": "直连"
+      },
+      {
+        "tag": "geoip-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-geolocation-!cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "直连"
       },
       {
         "tag": "geosite-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "直连"
       }
     ]
