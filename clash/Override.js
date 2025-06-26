@@ -1,8 +1,8 @@
 // 参考 Verge Rev 示例 Script 配置
 //
-// Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 0.5.8)
+// Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
 //
-// 最后更新时间: 2024-11-3 19:00
+// 最后更新时间: 2025-02-27 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -14,7 +14,7 @@ const ruleProviderCommon = {
 // 策略组通用配置
 const groupBaseOption = {
   "interval": 300,
-  "url": "http://connectivitycheck.gstatic.com/generate_204",
+  "url": "http://1.1.1.1/generate_204",
   "max-failed-times": 3,
 };
 
@@ -31,7 +31,7 @@ function main(config) {
   config["mixed-port"] = "7890";
   config["tcp-concurrent"] = true;
   config["allow-lan"] = true;
-  config["ipv6"] = true;
+  config["ipv6"] = false;
   config["log-level"] = "info";
   config["unified-delay"] = "true";
   config["find-process-mode"] = "strict";
@@ -44,17 +44,17 @@ function main(config) {
     "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["+.lan","+.local","localhost.ptlogin2.qq.com","+.direct","+.msftconnecttest.com", "+.msftncsi.com"],
-    "nameserver": ["223.5.5.5", "119.29.29.29"]
+    "fake-ip-filter": ["*", "+.local", "+.msftconnecttest.com", "+.msftncsi.com","rule-set:myself,private_domain,cn_domain"],
+    "nameserver": ["221.12.1.227", "221.12.33.227"]
   };
 
   // 覆盖 geodata 配置
   config["geodata-mode"] = true;
   config["geox-url"] = {
-    "geoip": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat",
+    "geoip": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
     "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-    "mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
-    "asn": "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+    "mmdb": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb",
+    "asn": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb"
   };
 
   // 覆盖 sniffer 配置
@@ -86,64 +86,64 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "节点选择",
+      "name": "默认出站",
       "type": "select",
-      "proxies": ["自建节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["单选节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/lighttpd.png"
     },
     {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     {
       ...groupBaseOption,
       "name": "Onedrive",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png"
     },    
     {
       ...groupBaseOption,
       "name": "Apple",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png"
     },
     {
       ...groupBaseOption,
       "name": "Oracle",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://image.501388.xyz/i/2024/11/29/6749874f1767c.png"
     },
     {
       ...groupBaseOption,
       "name": "Amazon",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://image.501388.xyz/i/2024/11/29/6749874f7c6d6.png"
     },
     {
       ...groupBaseOption,
       "name": "兜底分流",
       "type": "select",
-      "proxies": ["节点选择", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"
     },
     // 地区分组
     {
       ...groupBaseOption,
-      "name": "自建节点",
+      "name": "单选节点",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
@@ -277,7 +277,7 @@ function main(config) {
     "RULE-SET,apple_domain,Apple",
     "RULE-SET,oracle_domain,Oracle",
     "RULE-SET,amazon_domain,Amazon",
-    "RULE-SET,geolocation_!cn,节点选择",
+    "RULE-SET,geolocation_!cn,默认出站",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
     "MATCH,兜底分流"
