@@ -345,7 +345,7 @@
         "action": "hijack-dns"
       },
       {
-        "rule_set": "geosite_category-ads-all",
+        "rule_set": "geosite-category-ads-all",
         "clash_mode": "rule",
         "action": "reject"
       },
@@ -380,7 +380,7 @@
         "outbound": "直连"
       },
       {
-        "rule_set": "geosite_category-games@cn",        
+        "rule_set": "geosite-category-games@cn",        
         "outbound": "直连"
       },
       {
@@ -392,22 +392,22 @@
         "outbound": "直连"
       },
       {
-        "rule_set": "geosite_openai",        
+        "rule_set": "geosite-openai",        
         "outbound": "OpenAI"
       },
       {
-        "rule_set": "geosite_instagram",        
+        "rule_set": "geosite-instagram",        
         "outbound": "Instagram"      },
       {
-        "rule_set": "geosite_onedrive",        
+        "rule_set": "geosite-onedrive",        
         "outbound": "Onedrive"
       },
       {
-        "rule_set": "geosite_oracle",        
+        "rule_set": "geosite-oracle",        
         "outbound": "Oracle"
       },
       {
-        "rule_set": "geosite_amazon",        
+        "rule_set": "geosite-amazon",        
         "outbound": "Amazon"
       },
       {
@@ -415,11 +415,11 @@
         "outbound": "Apple"
       },
       {
-        "rule_set": "geosite_geolocation-!cn",        
+        "rule_set": "geosite-geolocation-!cn",        
         "outbound": "🚀 默认出站"
       },
       {
-        "rule_set": ["geoip_cn","geosite_cn"],        
+        "rule_set": ["geoip-cn","geosite-cn"],        
         "outbound": "直连"
       }
     ],
@@ -432,84 +432,84 @@
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_category-games@cn",
+        "tag": "geosite-category-games@cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_category-ads-all",
+        "tag": "geosite-category-ads-all",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_openai",
+        "tag": "geosite-openai",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/Toperlock/sing-box-geosite@main/rule/OpenAI.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_instagram",
+        "tag": "geosite-instagram",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_oracle",
+        "tag": "geosite-oracle",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_onedrive",
+        "tag": "geosite-onedrive",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/onedrive.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_amazon",
+        "tag": "geosite-amazon",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_apple",
+        "tag": "geosite-apple",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geoip_apple",
+        "tag": "geoip-apple",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_geolocation-!cn",
+        "tag": "geosite-geolocation-!cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geoip_cn",
+        "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "直连"
       },
       {
-        "tag": "geosite_cn",
+        "tag": "geosite-cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
