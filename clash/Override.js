@@ -258,12 +258,6 @@ function main(config) {
       "behavior": "domain",
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml",
       "path": "./rules/cn_domain.yaml"
-    },
-    "cn_ip": {
-      ...ruleProviderCommon,
-      "behavior": "ipcidr",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml",
-      "path": "./rules/cn_ip.yaml"
     }
   };
 
@@ -279,7 +273,7 @@ function main(config) {
     "RULE-SET,amazon_domain,Amazon",
     "RULE-SET,geolocation_!cn,默认出站",
     "RULE-SET,cn_domain,DIRECT",
-    "RULE-SET,cn_ip,DIRECT",
+    "GEOIP,cn,DIRECT",
     "MATCH,兜底分流"
   ];
 
