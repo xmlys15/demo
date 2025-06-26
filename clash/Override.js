@@ -44,7 +44,7 @@ function main(config) {
     "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["*", "+.local", "+.msftconnecttest.com", "+.msftncsi.com","rule-set:myself,private_domain,cn_domain"],
+    "fake-ip-filter": ["*", "+.local", "+.msftconnecttest.com", "+.msftncsi.com","+.myself","+.private_domain","+.cn_domain"],
     "nameserver": ["221.12.1.227", "221.12.33.227"]
   };
 
