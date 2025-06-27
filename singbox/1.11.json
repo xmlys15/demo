@@ -247,7 +247,7 @@
       "interrupt_exist_connections": true
     },
     {
-      "tag": "🇹🇼 台湾节点",
+      "tag": "🇼🇸 台湾节点",
       "type": "selector",
       "outbounds": [
         "{all}"
