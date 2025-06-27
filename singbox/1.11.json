@@ -337,7 +337,7 @@
         "outbound": "直连"
       },
       {
-        "rule_set": "geoip-apple",        
+        "rule_set": "geosite-apple",        
         "outbound": "直连"
       },
       {
