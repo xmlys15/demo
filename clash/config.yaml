@@ -1,0 +1,134 @@
+# 机场订阅
+proxy-providers:
+  Airport:
+    type: http
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🌏 直连
+    url: ""
+
+   
+# 全局配置
+mixed-port: 7890      # HTTP(S) 和 SOCKS 代理混合端口
+ipv6: true            # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
+allow-lan: true       #允许其他设备经过 Clash 的代理端口访问互联网
+bind-address: "*"     #"*" 绑定所有 IP 地址 ,绑定地址，仅允许其他设备通过这个地址访问
+unified-delay: true   # 更换延迟计算方式,去除握手等额外延迟
+tcp-concurrent: true  #启用 TCP 并发连接，将使用 DNS 解析的所有 IP 地址进行连接，并使用第一个成功的连接。
+log-level: info       #日志等级
+find-process-mode: strict  # 进程匹配模式：#路由器上请设置为 off# always 开启，强制匹配所有进程# strict 默认，由 Clash 判断是否开启# off 不匹配进程，推荐在路由器上使用此模式
+global-client-fingerprint: chrome  #全局TLS指纹
+keep-alive-interval: 1800  #缓解移动设备耗电问题
+
+profile:
+  store-selected: true  # 储存 API 对策略组的选择，以供下次启动时使用
+  store-fake-ip: true   # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
+
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: ui
+external-ui-name: zashboard
+external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+  
+# 域名嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+    
+# 代理模式
+tun:
+  enable: true
+  stack: mixed   # system/gvisor/mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  
+# DNS模块
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true       # dns 连接遵守路由规则，需配置 proxy-server-nameserver
+  enhanced-mode: fake-ip    # 模式切换 redir-host / fake-ip
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
+  fake-ip-filter-mode: blacklist # 模式切换 whitelist/blacklist  黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
+  fake-ip-filter:
+    - '*'
+    - '+.lan'
+    - '+.local'
+  default-nameserver:
+    - 223.5.5.5
+  proxy-server-nameserver:
+    - https://223.5.5.5/dns-query
+  nameserver:                # namesever尽量用运营商提供的DNS
+    - 221.12.1.227
+    - 221.12.33.227
+         
+proxies:
+- name: "🌏 直连"
+  type: direct
+
+# 策略组
+proxy-groups:
+  - {name: 🚀 默认出站, type: select, include-all: true, filter: "^(?!.*(剩|过|直)).*$"}
+  - {name: Openai,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
+  - {name: Instagram,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
+  - {name: tiktok,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/tiktok.png"}
+  - {name: Onedrive,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/microsoft-onedrive.png"}
+  - {name: 单点选择,type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
+  - {name: 台湾节点,type: select, include-all: true, filter: "(?i)台|tw|台湾","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"}
+  - {name: 新加坡节点,type: select, include-all: true, filter: "(?i)新|sg|sgp","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
+  - {name: 香港节点,type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"}
+  - {name: 日本节点,type: select, include-all: true, filter: "(?i)日|jp|japan","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"}
+  - {name: 美国节点,type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"}
+rules:
+  - RULE-SET,myself,🌏 直连
+  - RULE-SET,ads_domain,REJECT
+  - RULE-SET,private_domain,🌏 直连
+  - RULE-SET,openai_domain,Openai
+  - RULE-SET,instagram_domain,Instagram
+  - RULE-SET,tiktok_domain,tiktok
+  - RULE-SET,onedrive_domain,Onedrive
+  - RULE-SET,oracle_domain,🌏 直连
+  - RULE-SET,apple_domain,🌏 直连
+  - RULE-SET,amazon_domain,🌏 直连
+  - RULE-SET,gfw_domain,🚀 默认出站
+  - RULE-SET,geolocation_!cn,🚀 默认出站
+  - RULE-SET,cn_domain,🌏 直连
+  - RULE-SET,cn_ip,🌏 直连
+  - MATCH,🚀 默认出站
+
+rule-providers:
+  myself: { type: http, interval: 86400, behavior: domain, format: yaml, url: "https://raw.githubusercontent.com/xmlys15/demo/refs/heads/master/clash/mydirect.yaml" }
+  ads_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
+  private_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
+  openai_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs" }
+  instagram_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs" }
+  tiktok_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs" }
+  onedrive_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs" }
+  oracle_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.mrs" }
+  apple_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.github.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple@cn.mrs" }
+  amazon_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.mrs" }
+  gfw_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
+  geolocation_!cn: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
+  cn_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
+  cn_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
