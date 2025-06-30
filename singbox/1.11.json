@@ -26,31 +26,24 @@
         "address": "fakeip"
       }
     ],
-"rules": [
-    {
-      "outbound": "any", 
-      "server": "local"
-    },
-    {
-      "clash_mode": "direct",
-      "server": "local"
-    },
-    {
-      "clash_mode": "global",
-      "server": "google"
-    },
-    {
-      "rule_set": "geosite-cn",
-      "server": "local"
-    },
-    {
-      "query_type": [ "A", "AAAA" ],
-      "server": "remote"
-    }
-],
-    "final": "direct",
-    "independent_cache": true,
-    "strategy": "prefer_ipv4"
+    "rules": [
+      {
+        "outbound": "any", 
+        "server": "local"
+      },
+      {
+        "rule_set": "geosite-cn",
+        "server": "local"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "remote"
+      }
+    ],
+    "independent_cache": true
   },
   "inbounds": [
     {

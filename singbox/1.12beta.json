@@ -26,10 +26,6 @@
     ],
     "rules": [
       {
-        "clash_mode": "direct",
-        "server": "local"
-      },
-      {
         "rule_set": "geosite-cn",
         "server": "local"
       },
@@ -41,7 +37,6 @@
         "server": "remote"
       }
     ],
-    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "inbounds": [
