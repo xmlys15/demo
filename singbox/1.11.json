@@ -317,7 +317,11 @@
         "outbound": "直连"
       },
       {
-        "rule_set": ["geosite-openai","geosite-gemini"],        
+        "rule_set": [
+          "geosite-openai",
+          "geosite-gemini",
+          "geosite-tiktok"
+        ],        
         "outbound": "OpenAI"
       },
       {
@@ -386,6 +390,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google-gemini.srs",
+        "download_detour": "直连"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-tiktok",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tiktok.srs",
         "download_detour": "直连"
       },
       {
