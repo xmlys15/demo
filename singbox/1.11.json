@@ -245,6 +245,15 @@
         "action": "reject"
       },
       {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "outbound": "direct"
+      },
+      {
         "clash_mode": "direct",        
         "outbound": "direct"
       },
