@@ -92,7 +92,6 @@ proxy-groups:
   - {name: 🚀 默认出站, type: select, include-all: true, filter: "^(?!.*(剩|过|直)).*$"}
   - {name: Openai,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
   - {name: Instagram,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
-  - {name: tiktok,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/tiktok.png"}
   - {name: 单点选择,type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
   - {name: 台湾节点,type: select, include-all: true, filter: "(?i)台|tw|台湾","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"}
   - {name: 新加坡节点,type: select, include-all: true, filter: "(?i)新|sg|sgp","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
@@ -104,8 +103,9 @@ rules:
   - RULE-SET,ads_domain,REJECT
   - RULE-SET,private_domain,🌏 直连
   - RULE-SET,openai_domain,Openai
+  - RULE-SET,google-gemini_domain,Openai
+  - RULE-SET,tiktok_domain,Openai
   - RULE-SET,instagram_domain,Instagram
-  - RULE-SET,tiktok_domain,tiktok
   - RULE-SET,oracle_domain,🌏 直连
   - RULE-SET,apple_domain,🌏 直连
   - RULE-SET,amazon_domain,🌏 直连
@@ -120,6 +120,7 @@ rule-providers:
   ads_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
   private_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   openai_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs" }
+  google-gemini_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs" }
   instagram_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs" }
   tiktok_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs" }
   oracle_domain: { type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.mrs" }
