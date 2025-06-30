@@ -254,14 +254,6 @@
         "outbound": "direct"
       },
       {
-        "clash_mode": "direct",        
-        "outbound": "direct"
-      },
-      {
-        "clash_mode": "global",        
-        "outbound": "🚀 默认出站"
-      },
-      {
         "protocol": "bittorrent",        
         "outbound": "direct"
       },
