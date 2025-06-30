@@ -85,8 +85,7 @@
             "剩|过|直"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "OpenAI",
@@ -100,8 +99,7 @@
         "🇸🇬 新加坡节点",
         "🇼🇸 台湾节点",
         "direct"
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "Instagram",
@@ -115,8 +113,7 @@
         "🇸🇬 新加坡节点",
         "🇼🇸 台湾节点",
         "direct"
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "📌 单选节点",
@@ -131,8 +128,7 @@
             "日|美|新|台|港|剩|过|直"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "🇺🇲 美国节点",
@@ -147,8 +143,7 @@
             "US|us|美国|美|United States"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "🇯🇵 日本节点",
@@ -163,8 +158,7 @@
             "JP|jp|日本|日|Japan"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "🇭🇰 香港节点",
@@ -179,8 +173,7 @@
             "HK|hk|香港|港|HongKong"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "🇸🇬 新加坡节点",
@@ -195,8 +188,7 @@
             "新|sg|sgp"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "🇼🇸 台湾节点",
@@ -211,8 +203,7 @@
             "台|tw"
           ]
         }
-      ],
-      "interrupt_exist_connections": true
+      ]
     },
     {
       "tag": "direct",
@@ -262,11 +253,7 @@
         "outbound": "direct"
       },
       {
-        "rule_set": "myself",        
-        "outbound": "direct"
-      },
-      {
-        "rule_set": ["geosite-oracle","geosite-amazon","geosite-apple","geosite-category-games@cn"],        
+        "rule_set": ["myself","geosite-oracle","geosite-amazon","geosite-apple","geosite-category-games@cn"],        
         "outbound": "direct"
       },
       {
