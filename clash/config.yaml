@@ -28,7 +28,7 @@ profile:
   store-fake-ip: true   # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
 
 # 控制面板
-external-controller: 0.0.0.0:9090
+external-controller: 9090
 secret: ""
 external-ui: ui
 external-ui-name: zashboard
