@@ -74,8 +74,8 @@ function main(config) {
         "ports": ["443", "8443"]
       }
     },
-    "force-domain": "+.v2ex.com",
-    "skip-domain":["Mijia Cloud","+.push.apple.com"]
+    "force-domain": ["+.v2ex.com"],
+    "skip-domain": ["Mijia Cloud","+.push.apple.com"]
   };
 
   // 覆盖 tun 配置
@@ -102,14 +102,14 @@ function main(config) {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "🌏 直连"],
+      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "🌏 直连"],
+      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     // 地区分组
@@ -272,19 +272,19 @@ function main(config) {
 
   // 覆盖规则
   config["rules"] = [
-    "RULE-SET,myself,🌏 直连",
-    "RULE-SET,private_domain,🌏 直连",
+    "RULE-SET,myself,DIRECT",
+    "RULE-SET,private_domain,DIRECT",
     "RULE-SET,openai_domain,Openai",
     "RULE-SET,google-gemini_domain,Openai",
     "RULE-SET,tiktok_domain,Openai",
     "RULE-SET,instagram_domain,Instagram",
-    "RULE-SET,apple_domain,🌏 直连",
-    "RULE-SET,oracle_domain,🌏 直连",
-    "RULE-SET,amazon_domain,🌏 直连",
+    "RULE-SET,apple_domain,DIRECT",
+    "RULE-SET,oracle_domain,DIRECT",
+    "RULE-SET,amazon_domain,DIRECT",
     "RULE-SET,gfw_domain,🚀 默认出站",
     "RULE-SET,geolocation_!cn,🚀 默认出站",
-    "RULE-SET,cn_domain,🌏 直连",
-    "RULE-SET,cn_ip,🌏 直连",
+    "RULE-SET,cn_domain,DIRECT",
+    "RULE-SET,cn_ip,DIRECT",
     "MATCH,🚀 默认出站"
   ];
 
