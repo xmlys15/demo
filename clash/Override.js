@@ -265,7 +265,7 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "ipcidr",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
       "path": "./rules/cn_ip.mrs"
     }
   };
