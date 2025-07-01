@@ -40,11 +40,12 @@ function main(config) {
   // 覆盖 dns 配置
   config["dns"] = {
     "enable": true,
-    "listen": "0.0.0.0:1053",
-    "ipv6": false,
+    "ipv6": true,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["*", "+.local", "+.msftconnecttest.com", "+.msftncsi.com","+.myself","+.private_domain","+.cn_domain"],
+    "fake-ip-filter": ["*", "+.lan", "+.local"],
+    "default-nameserver":"223.5.5.5",
+    "proxy-server-nameserver": "https://223.5.5.5/dns-query", 
     "nameserver": ["221.12.1.227", "221.12.33.227"]
   };
 
@@ -72,73 +73,44 @@ function main(config) {
       "QUIC": {
         "ports": ["443", "8443"]
       }
-    }
+    },
+    "force-domain": "+.v2ex.com",
+    "skip-domain":["Mijia Cloud","+.push.apple.com"]
   };
 
   // 覆盖 tun 配置
   config["tun"] = {
     "enable": true,
     "stack": "mixed",
-    "dns-hijack": ["any:53"]
+    "dns-hijack": ["any:53","tcp://any:53"],
+    "auto-route": true,
+    "auto-redirect": true,
+    "auto-detect-interface": true
   };
 
   // 覆盖策略组
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "默认出站",
+      "name": "🚀 默认出站",
       "type": "select",
-      "proxies": ["单选节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/lighttpd.png"
+      "include-all": true,
+      "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
+      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"
     },
     {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "🌏 直连"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
+      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "🌏 直连"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Onedrive",
-      "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png"
-    },    
-    {
-      ...groupBaseOption,
-      "name": "Apple",
-      "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Oracle",
-      "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://image.501388.xyz/i/2024/11/29/6749874f1767c.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Amazon",
-      "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://image.501388.xyz/i/2024/11/29/6749874f7c6d6.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "兜底分流",
-      "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点", "DIRECT"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"
     },
     // 地区分组
     {
@@ -201,80 +173,119 @@ function main(config) {
     "myself": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://github.com/xmlys15/demo/raw/master/clash/mydirect.yaml",
+      "format": "yaml",
+      "url": "https://raw.github.com/xmlys15/demo/master/clash/mydirect.yaml",
       "path": "./rules/myself.yaml"
+    },
+    "ads_domain": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.mrs",
+      "path": "./rules/ads_domain.mrs"
     },
     "private_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml",
-      "path": "./rules/private_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
+      "path": "./rules/private_domain.mrs"
     },
     "openai_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geosite/openai.yaml",
-      "path": "./rules/openai_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs",
+      "path": "./rules/openai_domain.mrs"
+    },
+    "google-gemini_domain": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs",
+      "path": "./rules/google-gemini_domain.mrs"
+    },
+    "tiktok_domain": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs",
+      "path": "./rules/tiktok_domain.mrs"
     },
     "instagram_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.yaml",
-      "path": "./rules/instagram_domain.yaml"
-    },
-    "onedrive_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.yaml",
-      "path": "./rules/onedrive_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs",
+      "path": "./rules/instagram_domain.mrs"
     },
     "apple_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.yaml",
-      "path": "./rules/apple_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
+      "path": "./rules/apple_domain.mrs"
     },
-
     "oracle_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.yaml",
-      "path": "./rules/oracle_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.mrs",
+      "path": "./rules/oracle_domain.mrs"
     },
     "amazon_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.yaml",
-      "path": "./rules/amazon_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.mrs",
+      "path": "./rules/amazon_domain.mrs"
+    },
+    "gfw_domain": {
+      ...ruleProviderCommon,
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs",
+      "path": "./rules/gfw_domain.mrs"
     },
     "geolocation_!cn": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml",
-      "path": "./rules/geolocation_!cn.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs",
+      "path": "./rules/geolocation_!cn.mrs"
     },
     "cn_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml",
-      "path": "./rules/cn_domain.yaml"
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+      "path": "./rules/cn_domain.mrs"
+    },
+    "cn_ip": {
+      ...ruleProviderCommon,
+      "behavior": "ipcidr",
+      "format": "mrs",
+      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+      "path": "./rules/cn_ip.mrs"
     }
   };
 
   // 覆盖规则
   config["rules"] = [
-    "RULE-SET,myself,DIRECT",
-    "RULE-SET,private_domain,DIRECT",
+    "RULE-SET,myself,🌏 直连",
+    "RULE-SET,private_domain,🌏 直连",
     "RULE-SET,openai_domain,Openai",
+    "RULE-SET,google-gemini_domain,Openai",
+    "RULE-SET,tiktok_domain,Openai",
     "RULE-SET,instagram_domain,Instagram",
-    "RULE-SET,onedrive_domain,Onedrive",
-    "RULE-SET,apple_domain,Apple",
-    "RULE-SET,oracle_domain,Oracle",
-    "RULE-SET,amazon_domain,Amazon",
-    "RULE-SET,geolocation_!cn,默认出站",
-    "RULE-SET,cn_domain,DIRECT",
-    "GEOIP,cn,DIRECT",
-    "MATCH,兜底分流"
+    "RULE-SET,apple_domain,🌏 直连",
+    "RULE-SET,oracle_domain,🌏 直连",
+    "RULE-SET,amazon_domain,🌏 直连",
+    "RULE-SET,gfw_domain,🚀 默认出站",
+    "RULE-SET,geolocation_!cn,🚀 默认出站",
+    "RULE-SET,cn_domain,🌏 直连",
+    "RULE-SET,cn_ip,🌏 直连",
+    "MATCH,🚀 默认出站"
   ];
 
   // 返回修改后的配置

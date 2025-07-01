@@ -88,7 +88,7 @@ proxies:
 
 # 策略组
 proxy-groups:
-  - {name: 🚀 默认出站, type: select, include-all: true, filter: "^(?!.*(剩|过|直)).*$"}
+  - {name: 🚀 默认出站, type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$"}
   - {name: Openai,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
   - {name: Instagram,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
   - {name: 单点选择,type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
