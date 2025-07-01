@@ -7,7 +7,7 @@ proxy-providers:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxy: 🌏 直连
+    proxy: DIRECT
     url: ""
 
    
@@ -82,15 +82,11 @@ dns:
     - 221.12.1.227
     - 221.12.33.227
          
-proxies:
-- name: "🌏 直连"
-  type: direct
-
 # 策略组
 proxy-groups:
-  - {name: 🚀 默认出站, type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$"}
-  - {name: Openai,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
-  - {name: Instagram,type: select, proxies: [🚀 默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点,🌏 直连],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
+  - {name: 默认出站, type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
+  - {name: Openai,type: select, proxies: [默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
+  - {name: Instagram,type: select, proxies: [默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
   - {name: 单点选择,type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
   - {name: 台湾节点,type: select, include-all: true, filter: "(?i)台|tw|台湾","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"}
   - {name: 新加坡节点,type: select, include-all: true, filter: "(?i)新|sg|sgp","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
@@ -98,21 +94,21 @@ proxy-groups:
   - {name: 日本节点,type: select, include-all: true, filter: "(?i)日|jp|japan","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"}
   - {name: 美国节点,type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"}
 rules:
-  - RULE-SET,myself,🌏 直连
+  - RULE-SET,myself,DIRECT
   - RULE-SET,ads_domain,REJECT
-  - RULE-SET,private_domain,🌏 直连
+  - RULE-SET,private_domain,DIRECT
   - RULE-SET,openai_domain,Openai
   - RULE-SET,google-gemini_domain,Openai
   - RULE-SET,tiktok_domain,Openai
   - RULE-SET,instagram_domain,Instagram
-  - RULE-SET,oracle_domain,🌏 直连
-  - RULE-SET,apple_domain,🌏 直连
-  - RULE-SET,amazon_domain,🌏 直连
-  - RULE-SET,gfw_domain,🚀 默认出站
-  - RULE-SET,geolocation_!cn,🚀 默认出站
-  - RULE-SET,cn_domain,🌏 直连
-  - RULE-SET,cn_ip,🌏 直连
-  - MATCH,🚀 默认出站
+  - RULE-SET,oracle_domain,DIRECT
+  - RULE-SET,apple_domain,DIRECT
+  - RULE-SET,amazon_domain,DIRECT
+  - RULE-SET,gfw_domain,默认出站
+  - RULE-SET,geolocation_!cn,默认出站
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT
+  - MATCH,默认出站
 
 rule-providers:
   myself: { type: http, interval: 86400, behavior: domain, format: yaml, url: "https://raw.githubusercontent.com/xmlys15/demo/refs/heads/master/clash/mydirect.yaml" }

@@ -92,7 +92,7 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "🚀 默认出站",
+      "name": "默认出站",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
@@ -102,14 +102,14 @@ function main(config) {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["🚀 默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     // 地区分组
@@ -282,11 +282,11 @@ function main(config) {
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,gfw_domain,🚀 默认出站",
-    "RULE-SET,geolocation_!cn,🚀 默认出站",
+    "RULE-SET,gfw_domain,默认出站",
+    "RULE-SET,geolocation_!cn,默认出站",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
-    "MATCH,🚀 默认出站"
+    "MATCH,默认出站"
   ];
 
   // 返回修改后的配置
