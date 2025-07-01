@@ -273,6 +273,7 @@ function main(config) {
   // 覆盖规则
   config["rules"] = [
     "RULE-SET,myself,DIRECT",
+    "RULE-SET,ads_domain,REJECT",    
     "RULE-SET,private_domain,DIRECT",
     "RULE-SET,openai_domain,Openai",
     "RULE-SET,google-gemini_domain,Openai",
