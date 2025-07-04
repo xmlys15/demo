@@ -118,7 +118,7 @@ function main(config) {
       "name": "单选节点",
       "type": "select",
       "include-all": true,
-      "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
+      "filter": "^(?!.*(剩|过|直)).*$",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"
     },
     {
