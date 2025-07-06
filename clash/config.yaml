@@ -6,13 +6,17 @@ proxy-providers:
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
-      interval: 300
+      interval: 3600
     proxy: DIRECT
     url: ""
 
    
 # 全局配置
 mixed-port: 7890      # HTTP(S) 和 SOCKS 代理混合端口
+port: 8080 # HTTP(S) 代理服务器端口
+socks-port: 1080 # SOCKS5 代理端口
+redir-port: 7891 # 透明代理端口，用于 Linux 和 MacOS
+tproxy-port: 7892   # Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
 ipv6: true            # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 allow-lan: true       #允许其他设备经过 Clash 的代理端口访问互联网
 bind-address: "*"     #"*" 绑定所有 IP 地址 ,绑定地址，仅允许其他设备通过这个地址访问
@@ -22,7 +26,6 @@ log-level: info       #日志等级
 find-process-mode: strict  # 进程匹配模式：#路由器上请设置为 off# always 开启，强制匹配所有进程# strict 默认，由 Clash 判断是否开启# off 不匹配进程，推荐在路由器上使用此模式
 global-client-fingerprint: chrome  #全局TLS指纹
 keep-alive-interval: 1800  #缓解移动设备耗电问题
-
 profile:
   store-selected: true  # 储存 API 对策略组的选择，以供下次启动时使用
   store-fake-ip: true   # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
@@ -65,6 +68,7 @@ tun:
 # DNS模块
 dns:
   enable: true
+  listen: 0.0.0.0:1053
   ipv6: true
   respect-rules: true       # dns 连接遵守路由规则，需配置 proxy-server-nameserver
   enhanced-mode: fake-ip    # 模式切换 redir-host / fake-ip
@@ -84,9 +88,9 @@ dns:
          
 # 策略组
 proxy-groups:
-  - {name: 默认出站, type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
-  - {name: Openai,type: select, proxies: [默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
-  - {name: Instagram,type: select, proxies: [默认出站,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
+  - {name: 默认代理, type: select, include-all: true, filter: "^(?!.*(日|美|新|台|港|剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
+  - {name: Openai,type: select, proxies: [默认代理,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/openai.png"}
+  - {name: Instagram,type: select, proxies: [默认代理,单点选择,美国节点,日本节点,香港节点,新加坡节点,台湾节点],"icon": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/instagram.png"}
   - {name: 单点选择,type: select, include-all: true, filter: "^(?!.*(剩|过|直)).*$","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"}
   - {name: 台湾节点,type: select, include-all: true, filter: "(?i)台|tw|台湾","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"}
   - {name: 新加坡节点,type: select, include-all: true, filter: "(?i)新|sg|sgp","icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
@@ -104,11 +108,11 @@ rules:
   - RULE-SET,oracle_domain,DIRECT
   - RULE-SET,apple_domain,DIRECT
   - RULE-SET,amazon_domain,DIRECT
-  - RULE-SET,gfw_domain,默认出站
-  - RULE-SET,geolocation_!cn,默认出站
+  - RULE-SET,gfw_domain,默认代理
+  - RULE-SET,geolocation_!cn,默认代理
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT
-  - MATCH,默认出站
+  - MATCH,默认代理
 
 rule-providers:
   myself: { type: http, interval: 86400, behavior: domain, format: yaml, url: "https://raw.githubusercontent.com/xmlys15/demo/refs/heads/master/clash/mydirect.yaml" }

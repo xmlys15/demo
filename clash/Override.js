@@ -7,14 +7,13 @@
 // 规则集通用配置
 const ruleProviderCommon = {
   "type": "http",
-  "format": "text",
   "interval": 86400
 };
 
 // 策略组通用配置
 const groupBaseOption = {
-  "interval": 300,
-  "url": "http://1.1.1.1/generate_204",
+  "interval": 3600,
+  "url": "https://www.gstatic.com/generate_204",
   "max-failed-times": 3,
 };
 
@@ -28,18 +27,29 @@ function main(config) {
   }
 
   // 覆盖通用配置
-  config["mixed-port"] = "7890";
+  config["mixed-port"] = 7890;
+  config[port] = 8080;
+  config["socks-port"] = 1080;
+  config["redir-port"] = 7891;
+  config["tproxy-port"] = 7892;
   config["tcp-concurrent"] = true;
   config["allow-lan"] = true;
+  config["bind-address"] = "*";
   config["ipv6"] = true;
   config["log-level"] = "info";
-  config["unified-delay"] = "true";
+  config["unified-delay"] = true;
   config["find-process-mode"] = "strict";
   config["global-client-fingerprint"] = "chrome";
+  config["keep-alive-interval"] = 1800;
+  config["profile"] =  {
+    "store-selected": true,
+    "store-fake-ip": true
+  };
 
   // 覆盖 dns 配置
   config["dns"] = {
     "enable": true,
+    "listen": "0.0.0.0:1053",
     "ipv6": true,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
@@ -92,7 +102,7 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "默认出站",
+      "name": "默认代理",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
@@ -102,14 +112,14 @@ function main(config) {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认代理", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["默认出站", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认代理", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     // 地区分组
@@ -282,11 +292,11 @@ function main(config) {
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,gfw_domain,默认出站",
-    "RULE-SET,geolocation_!cn,默认出站",
+    "RULE-SET,gfw_domain,默认代理",
+    "RULE-SET,geolocation_!cn,默认代理",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
-    "MATCH,默认出站"
+    "MATCH,默认代理"
   ];
 
   // 返回修改后的配置
