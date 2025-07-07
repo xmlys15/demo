@@ -60,7 +60,7 @@ function main(config) {
   };
 
   // 覆盖 geodata 配置
-  config["geodata-mode"] = true;
+  config["geodata-mode"] = false;
   config["geox-url"] = {
     "geoip": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
     "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
