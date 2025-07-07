@@ -6,8 +6,8 @@
 
 // 规则集通用配置
 const ruleProviderCommon = {
-  "type": "http",
-  "interval": 86400
+  type: "http",
+  interval: 86400,
 };
 
 // 策略组通用配置
@@ -92,7 +92,10 @@ function main(config) {
   config["tun"] = {
     "enable": true,
     "stack": "mixed",
-    "dns-hijack": ["any:53","tcp://any:53"],
+    "dns-hijack": [
+      "udp://any:53",
+      "tcp://any:53"
+    ],
     "auto-route": true,
     "auto-redirect": true,
     "auto-detect-interface": true
@@ -134,8 +137,7 @@ function main(config) {
     {
       ...groupBaseOption,
       "name": "香港节点",
-      "type": "url-test",
-      "tolerance": 0,
+      "type": "select",      
       "include-all": true,
       "filter": "(?i)香港|(\b(HK|Hong)\b)",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"
@@ -143,8 +145,7 @@ function main(config) {
     {
       ...groupBaseOption,
       "name": "美国节点",
-      "type": "url-test",
-      "tolerance": 0,
+      "type": "select",      
       "include-all": true,
       "filter": "(?i)美国|圣何塞|(\b(US|United States)\b)",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"
@@ -152,8 +153,7 @@ function main(config) {
     {
       ...groupBaseOption,
       "name": "新加坡节点",
-      "type": "url-test",
-      "tolerance": 0,
+      "type": "select",      
       "include-all": true,
       "filter": "(?i)新加坡|狮|(\b(SG|Singapore)\b)",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"
@@ -161,8 +161,7 @@ function main(config) {
     {
       ...groupBaseOption,
       "name": "日本节点",
-      "type": "url-test",
-      "tolerance": 0,
+      "type": "select",      
       "include-all": true,
       "filter": "(?i)日本|(\b(JP|Japan)\b)",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"
@@ -170,8 +169,7 @@ function main(config) {
     {
       ...groupBaseOption,
       "name": "台湾节点",
-      "type": "url-test",
-      "tolerance": 0,
+      "type": "select",      
       "include-all": true,
       "filter": "(?i)台湾|(\b(TW|Tai|Taiwan)\b)",
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"

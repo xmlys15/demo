@@ -59,7 +59,7 @@ tun:
   enable: true
   stack: mixed   # system/gvisor/mixed
   dns-hijack:
-    - "any:53"
+    - "udp://any:53"
     - "tcp://any:53"
   auto-route: true
   auto-redirect: true
