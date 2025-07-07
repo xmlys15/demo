@@ -53,7 +53,7 @@ function main(config) {
     "ipv6": true,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["*", "+.lan", "+.local"],
+    "fake-ip-filter": ["*", "+.lan", "+.local","rule-set:myself"],
     "default-nameserver":"223.5.5.5",
     "proxy-server-nameserver": "https://223.5.5.5/dns-query", 
     "nameserver": ["221.12.1.227", "221.12.33.227"]

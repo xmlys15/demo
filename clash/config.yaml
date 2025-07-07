@@ -78,6 +78,7 @@ dns:
     - '*'
     - '+.lan'
     - '+.local'
+    - "rule-set:myself"
   default-nameserver:
     - 223.5.5.5
   proxy-server-nameserver:
