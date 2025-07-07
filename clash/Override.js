@@ -28,7 +28,7 @@ function main(config) {
 
   // 覆盖通用配置
   config["mixed-port"] = 7890;
-  config[port] = 8080;
+  config["port"] = 8080;
   config["socks-port"] = 1080;
   config["redir-port"] = 7891;
   config["tproxy-port"] = 7892;
