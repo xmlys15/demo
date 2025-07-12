@@ -1,8 +1,4 @@
-// 参考 Verge Rev 示例 Script 配置
-//
-// Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
-//
-// 最后更新时间: 2025-02-27 23:00
+// 最后更新时间: 2025-07-13 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -23,10 +19,10 @@ function main(config) {
   const proxyProviderCount =
     typeof config?.["proxy-providers"] === "object" ? Object.keys(config["proxy-providers"]).length : 0;
   if (proxyCount === 0 && proxyProviderCount === 0) {
-    throw new Error("配置文件中未找到任何代理");
+    throw new Error("配置文件中未找到任何节点");
   }
 
-  // 覆盖通用配置
+  // 覆盖全局配置
   config["mixed-port"] = 7890;
   config["port"] = 8080;
   config["socks-port"] = 1080;
