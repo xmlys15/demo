@@ -1,21 +1,39 @@
 /**
  * @fileoverview
- * This script is designed to work with a sing-box template that uses native filters for node classification.
- * It fetches proxy nodes from a subscription and injects their tags into selectors that use a "{all}" placeholder.
- * v2: Wrapped in an async IIFE to resolve "await is only valid in async functions" error.
+ * Sub-Store compatible script to generate a full sing-box profile from a remote template.
+ * v3: Adheres to Sub-Store script specification.
+ * - Uses `async function main(params)` as the entry point.
+ * - Fetches the template from a user-defined URL instead of local $files.
  *
  * @author Gemini
  */
 
-// 将整个脚本包裹在一个立即执行的异步函数 (IIFE) 中，以解决 await 的语法错误
-(async () => {
-    const { type, name } = $arguments;
+// S-S-Step 1: 将您的模板文件上传到 GitHub Gist 等平台，并在此处替换成您的 Raw 链接
+const TEMPLATE_URL = 'https://raw.githubusercontent.com/xmlys15/demo/refs/heads/master/singbox/1.11.json';
 
-    // 1. 解析模板文件
-    let config = JSON.parse($files[0]);
-    let proxies;
+// S-S-Step 2: Sub-Store 脚本的主入口函数
+async function main(params) {
+    // 所有的代码逻辑都必须在这个 main 函数内部
 
-    // 2. 尝试从订阅链接获取所有代理节点
+    // 1. 通过网络链接获取模板内容
+    // http 对象由 sub-store 环境提供
+    let config;
+    try {
+        const resp = await http.get(TEMPLATE_URL);
+        if (resp.status !== 200) {
+            throw new Error(`无法下载模板，HTTP 状态码: ${resp.status}`);
+        }
+        config = JSON.parse(resp.body);
+    } catch (error) {
+        console.error("获取远程模板文件失败: " + error.message);
+        // 获取失败则返回一个空配置，防止 sub-store 出错
+        return {};
+    }
+
+    // 2. 获取订阅中的代理节点
+    // 'produceArtifact' 由 sub-store 环境提供，功能强大
+    const { type, name } = params;
+    let proxies = []; // 默认为空数组
     try {
         proxies = await produceArtifact({
             name,
@@ -23,42 +41,25 @@
             platform: 'sing-box',
             produceType: 'internal',
         });
+        if (!proxies) { proxies = []; } // 确保 proxies 是一个数组
     } catch (error) {
-        // 如果获取节点失败，打印错误日志并直接返回原始模板内容
         console.error("获取订阅节点失败: " + error.message);
-        $content = JSON.stringify(config, null, 2);
-        return;
+        // 即使节点获取失败，我们依然可以返回一个仅包含模板内容的配置
     }
 
-
-    // 3. 如果没有获取到任何节点，则直接返回原始模板，防止后续出错
-    if (!proxies || proxies.length === 0) {
-        console.log("订阅中未发现任何有效节点。");
-        $content = JSON.stringify(config, null, 2);
-        return;
-    }
-
-    // 4. 提取所有节点的 tag（名称）
+    // 3. 将节点信息注入到模板中（这部分逻辑和之前一样）
     const proxyTags = proxies.map(p => p.tag);
-
-    // 5. 将获取到的所有代理节点完整配置添加到模板的 outbounds 列表末尾
     config.outbounds.push(...proxies);
 
-    // 6. 遍历模板中的所有 outbounds，找到并替换策略组(selector)中的 "{all}" 占位符
     config.outbounds.forEach(outbound => {
       if (Array.isArray(outbound.outbounds)) {
         const placeholderIndex = outbound.outbounds.indexOf('{all}');
         if (placeholderIndex !== -1) {
-          // 使用所有节点的 tag 列表替换掉 "{all}" 这个占位符
           outbound.outbounds.splice(placeholderIndex, 1, ...proxyTags);
         }
       }
     });
 
-    // 7. 将修改后的配置对象转换回 JSON 字符串，作为最终输出
-    $content = JSON.stringify(config, null, 2);
-
-})().catch(error => {
-    // 捕获任何未预料的全局错误
-    console.error("脚本执行过程中发生意外错误: " + error.message);
-});
+    // 4. 返回处理完成的、字符串化的完整配置
+    return JSON.stringify(config, null, 2);
+}
