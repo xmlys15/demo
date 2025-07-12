@@ -115,14 +115,14 @@ function main(config) {
       ...groupBaseOption,
       "name": "Openai",
       "type": "select",
-      "proxies": ["默认代理", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认代理","单选节点", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
     },
     {
       ...groupBaseOption,
       "name": "Instagram",
       "type": "select",
-      "proxies": ["默认代理", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
+      "proxies": ["默认代理", "单选节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
     },
     // 地区分组
