@@ -1,0 +1,322 @@
+{
+  "dns": {
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
+    "servers": [
+      {
+        "tag": "google",
+        "address": "tls://8.8.8.8",
+        "detour": "🚀 默认出站"
+      },
+      {
+        "tag": "local",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      },
+      {
+        "tag": "fakeip",
+        "address": "fakeip"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any", 
+        "server": "local",
+        "disable_cache": true
+      },
+      {
+        "query_type": "HTTPS",
+        "action": "reject"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip",
+        "rewrite_ttl": 1
+      },
+      {
+        "rule_set": "cn_domain",
+        "server": "local"
+      }
+    ],
+    "independent_cache": true
+  },
+  "route": {
+    "rules": [
+      {
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic",
+          "dns"
+        ],
+        "timeout": "500ms"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": "ads_domain",
+        "action": "reject"
+      },
+      {
+        "protocol": "bittorrent",        
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,        
+        "outbound": "direct"
+      },
+      {
+        "rule_set": ["direct_domain","oracle_domain","amazon_domain","apple_domain","games_domain"],        
+        "outbound": "direct"
+      },
+      {
+        "rule_set": ["openai_domain","gemini_domain","tiktok_domain"],        
+        "outbound": "OpenAI"
+      },
+      {
+        "rule_set": "instagram_domain",        
+        "outbound": "Instagram"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain"
+          },
+          {
+            "invert": true,
+            "rule_set": [
+              "cn_domain"
+            ]
+          }
+        ],
+        "outbound": "🚀 默认出站"
+      },
+      {
+        "action": "resolve"
+      },
+      {
+        "rule_set": ["cn_ip","cn_domain"],        
+        "outbound": "direct"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "direct_domain",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "ads_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "games_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "openai_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "gemini_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google-gemini.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "tiktok_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tiktok.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "instagram_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "oracle_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "amazon_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "apple_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "proxy_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "cn_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "cn_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "download_detour": "direct"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "🚀 默认出站"
+  },
+  "outbounds": [
+    {
+      "tag": "🚀 默认出站",
+      "type": "selector"
+    },
+    {
+      "tag": "OpenAI",
+      "type": "selector",
+      "outbounds": [
+        "🚀 默认出站",
+        "📌 单选节点",
+        "🇺🇲 美国节点",
+        "🇯🇵 日本节点",
+        "🇭🇰 香港节点",
+        "🇸🇬 新加坡节点",
+        "🇼🇸 台湾节点",
+        "direct"
+      ]
+    },
+    {
+      "tag": "Instagram",
+      "type": "selector",
+      "outbounds": [
+        "🚀 默认出站",
+        "📌 单选节点",
+        "🇺🇲 美国节点",
+        "🇯🇵 日本节点",
+        "🇭🇰 香港节点",
+        "🇸🇬 新加坡节点",
+        "🇼🇸 台湾节点",
+        "direct"
+      ]
+    },
+    {
+      "tag": "📌 单选节点",
+      "type": "selector"
+    },
+    {
+      "tag": "🇺🇲 美国节点",
+      "type": "selector"
+    },
+    {
+      "tag": "🇯🇵 日本节点",
+      "type": "selector"
+    },
+    {
+      "tag": "🇭🇰 香港节点",
+      "type": "selector"
+    },
+    {
+      "tag": "🇸🇬 新加坡节点",
+      "type": "selector"
+    },
+    {
+      "tag": "🇼🇸 台湾节点",
+      "type": "selector"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    }
+  ],
+  "inbounds": [
+    {
+      "type": "tun",
+      "address": [
+        "172.19.0.0/30",
+        "fdfe:dcba:9876::0/126"
+      ],
+      "stack": "mixed",
+      "auto_route": true,
+      "strict_route": true,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 7890
+        }
+      }
+    },
+    {
+      "type": "mixed",
+      "listen": "127.0.0.1",
+      "listen_port": 7890
+    }
+  ],
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
+      "external_ui_download_detour": "direct",
+      "default_mode": "rule"
+    },
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    }
+  },
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  }
+}
