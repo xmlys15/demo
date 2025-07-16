@@ -52,7 +52,7 @@ config.outbounds.forEach(group => {
   // 调用下面的 getTags 函数，根据正则表达式筛选出所有符合条件的节点的 “名字(tag)”
   const tags = getTags(proxies, regex);
   // 将筛选出的节点名字，添加到当前策略组的 outbounds 数组中
-  group.outbounds.push(...tags);
+  group.outbounds = tags;
 });
 
 // 【7. 收尾工作：处理空分组】
