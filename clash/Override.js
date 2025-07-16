@@ -41,6 +41,13 @@ function main(config) {
     "store-selected": true,
     "store-fake-ip": true
   };
+  
+  // 覆盖控制面板
+  config["external-controller"] = 9090,
+  config["secret"] = "",
+  config["external-ui"] = "ui",
+  config["external-ui-name"] = "zashboard",
+  config["external-ui-url"] = "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 
   // 覆盖 dns 配置
   config["dns"] = {
@@ -292,7 +299,6 @@ function main(config) {
     "RULE-SET,cn_ip,DIRECT",
     "MATCH,默认代理"
   ];
-
   // 返回修改后的配置
   return config;
 }

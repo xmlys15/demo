@@ -2,10 +2,10 @@
     "type": "anytls",
     "tag": "anytls-in",
     "listen": "",
-    "listen_port": 10088,
+    "listen_port": 443,
     "users": [
         {
-            "name": "sekai",
+            "name": "SGP-anytls",
             "password": "8JCsPssfgS8tiRwiMlhARg=="
         }
     ],
@@ -22,7 +22,7 @@
     ],
     "tls": {
         "enabled": true,
-        "server_name": "xxx.xx",
+        "server_name": "127.0.0.1:8443",
         "alpn": [
             "h3"
         ],
