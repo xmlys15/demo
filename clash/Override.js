@@ -47,7 +47,7 @@ function main(config) {
   config["secret"] = "",
   config["external-ui"] = "ui",
   config["external-ui-name"] = "zashboard",
-  config["external-ui-url"] = "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+  config["external-ui-url"] = "https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
 
   // 覆盖 dns 配置
   config["dns"] = {
