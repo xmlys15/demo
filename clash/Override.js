@@ -243,11 +243,11 @@ function main(config) {
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,gfw_domain,默认代理",
-    "RULE-SET,geolocation_!cn,默认代理",
+    "RULE-SET,gfw_domain,proxy",
+    "RULE-SET,geolocation_!cn,proxy",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
-    "MATCH,默认代理"
+    "MATCH,proxy"
   ];
   // 返回修改后的配置
   return config;
