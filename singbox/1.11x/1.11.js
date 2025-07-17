@@ -39,20 +39,12 @@ config.outbounds.forEach(group => {
 
   let newTags = null;
 
-  if (group.tag === '🚀 默认出站') {
-    newTags = getTags(proxies, /^((?![日美新台港剩过直]).)*$/);
-  } else if (group.tag === '📌 单选节点') {
+  if (group.tag === 'proxy') {
     newTags = getTags(proxies, /^((?![剩过直]).)*$/);
-  } else if (group.tag === '🇭🇰 香港节点') {
-    newTags = getTags(proxies, /港|hk|hongkong|🇭🇰/i);
-  } else if (group.tag === '🇼🇸 台湾节点') {
-    newTags = getTags(proxies, /台|tw|taiwan|🇹🇼/i);
-  } else if (group.tag === '🇯🇵 日本节点') {
-    newTags = getTags(proxies, /日本|jp|japan|🇯🇵/i);
-  } else if (group.tag === '🇺🇲 美国节点') {
-    newTags = getTags(proxies, /美|us|united\s?states|🇺🇸/i);
-  } else if (group.tag === '🇸🇬 新加坡节点') {
-    newTags = getTags(proxies, /新|sg|singapore|🇸🇬/i);
+  } else if (group.tag === 'openai') {
+    newTags = getTags(proxies, /^((?![剩过直]).)*$/);
+  } else if (group.tag === 'instagram') {
+    newTags = getTags(proxies, /^((?![剩过直]).)*$/);
   }
   
   if (newTags !== null) {
