@@ -108,74 +108,24 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "默认代理",
+      "name": "proxy",
       "type": "select",
       "include-all": true,
-      "filter": "^(?!.*(日|美|新|台|港|剩|过|直)).*$",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"
+      "filter": "^(?!.*(剩|过|直)).*$"
     },
     {
       ...groupBaseOption,
-      "name": "Openai",
-      "type": "select",
-      "proxies": ["默认代理","单选节点", "香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
-      "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Instagram",
-      "type": "select",
-      "proxies": ["默认代理", "单选节点","香港节点", "美国节点", "新加坡节点", "日本节点", "台湾节点"],
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png"
-    },
-    // 地区分组
-    {
-      ...groupBaseOption,
-      "name": "单选节点",
+      "name": "openai",
       "type": "select",
       "include-all": true,
-      "filter": "^(?!.*(剩|过|直)).*$",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Speedtest.png"
+      "filter": "^(?!.*(剩|过|直)).*$"
     },
     {
       ...groupBaseOption,
-      "name": "香港节点",
-      "type": "select",      
+      "name": "instagram",
+      "type": "select",
       "include-all": true,
-      "filter": "(?i)香港|(\b(HK|Hong)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "美国节点",
-      "type": "select",      
-      "include-all": true,
-      "filter": "(?i)美国|圣何塞|(\b(US|United States)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "新加坡节点",
-      "type": "select",      
-      "include-all": true,
-      "filter": "(?i)新加坡|狮|(\b(SG|Singapore)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "日本节点",
-      "type": "select",      
-      "include-all": true,
-      "filter": "(?i)日本|(\b(JP|Japan)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"
-    },
-    {
-      ...groupBaseOption,
-      "name": "台湾节点",
-      "type": "select",      
-      "include-all": true,
-      "filter": "(?i)台湾|(\b(TW|Tai|Taiwan)\b)",
-      "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"
+      "filter": "^(?!.*(剩|过|直)).*$"
     }
   ];
 
