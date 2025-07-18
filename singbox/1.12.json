@@ -5,7 +5,7 @@
         "tag": "google",
         "type": "tls",
         "server": "8.8.8.8",
-        "detour": "🚀 默认出站"
+        "detour": "proxy"
       },
             {
         "tag": "local",
@@ -85,11 +85,11 @@
       },
       {
         "rule_set": ["openai_domain","gemini_domain","tiktok_domain"],        
-        "outbound": "OpenAI"
+        "outbound": "openai"
       },
       {
         "rule_set": "instagram_domain",        
-        "outbound": "Instagram"
+        "outbound": "instagram"
       },
       {
         "type": "logical",
@@ -105,7 +105,7 @@
             ]
           }
         ],
-        "outbound": "🚀 默认出站"
+        "outbound": "proxy"
       },
       {
         "action": "resolve"
@@ -141,7 +141,7 @@
         "tag": "openai_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/Toperlock/sing-box-geosite@main/rule/OpenAI.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
         "download_detour": "direct"
       },
       {
@@ -209,54 +209,11 @@
       }
     ],
     "auto_detect_interface": true,
-    "final": "🚀 默认出站"
+    "final": "proxy"
   },
   "outbounds": [
     {
-      "tag": "🚀 默认出站",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "exclude",
-          "keywords": [
-            "日|美|新|台|港|剩|过|直"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "OpenAI",
-      "type": "selector",
-      "outbounds": [
-        "🚀 默认出站",
-        "📌 单选节点",
-        "🇺🇲 美国节点",
-        "🇯🇵 日本节点",
-        "🇭🇰 香港节点",
-        "🇸🇬 新加坡节点",
-        "🇼🇸 台湾节点",
-        "direct"
-      ]
-    },
-    {
-      "tag": "Instagram",
-      "type": "selector",
-      "outbounds": [
-        "🚀 默认出站",
-        "📌 单选节点",
-        "🇺🇲 美国节点",
-        "🇯🇵 日本节点",
-        "🇭🇰 香港节点",
-        "🇸🇬 新加坡节点",
-        "🇼🇸 台湾节点",
-        "direct"
-      ]
-    },
-    {
-      "tag": "📌 单选节点",
+      "tag": "proxy",
       "type": "selector",
       "outbounds": [
         "{all}"
@@ -271,76 +228,31 @@
       ]
     },
     {
-      "tag": "🇺🇲 美国节点",
+      "tag": "openai",
       "type": "selector",
       "outbounds": [
         "{all}"
       ],
       "filter": [
         {
-          "action": "include",
+          "action": "exclude",
           "keywords": [
-            "US|us|美国|美|United States"
+            "剩|过|直"
           ]
         }
       ]
     },
     {
-      "tag": "🇯🇵 日本节点",
+      "tag": "instagram",
       "type": "selector",
       "outbounds": [
         "{all}"
       ],
       "filter": [
         {
-          "action": "include",
+          "action": "exclude",
           "keywords": [
-            "JP|jp|日本|日|Japan"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "🇭🇰 香港节点",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "include",
-          "keywords": [
-            "HK|hk|香港|港|HongKong"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "🇸🇬 新加坡节点",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "include",
-          "keywords": [
-            "新|sg|sgp"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "🇼🇸 台湾节点",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "include",
-          "keywords": [
-            "台|tw"
+            "剩|过|直"
           ]
         }
       ]
