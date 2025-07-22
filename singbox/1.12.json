@@ -213,53 +213,20 @@
   },
   "outbounds": [
     {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
       "tag": "proxy",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "exclude",
-          "keywords": [
-            "剩|过|直"
-          ]
-        }
-      ]
+      "type": "selector"
     },
     {
       "tag": "openai",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "exclude",
-          "keywords": [
-            "剩|过|直"
-          ]
-        }
-      ]
+      "type": "selector"
     },
     {
       "tag": "instagram",
-      "type": "selector",
-      "outbounds": [
-        "{all}"
-      ],
-      "filter": [
-        {
-          "action": "exclude",
-          "keywords": [
-            "剩|过|直"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "direct",
-      "type": "direct"
+      "type": "selector"
     }
   ],
   "inbounds": [
