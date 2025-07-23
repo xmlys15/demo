@@ -7,12 +7,12 @@
         "server": "8.8.8.8",
         "detour": "proxy"
       },
-            {
+      {
         "tag": "local",
-        "type": "udp",
+        "type": "https",
         "server": "223.5.5.5"
       },
-       {
+      {
         "tag": "fakeip",
         "type": "fakeip",
         "inet4_range": "198.18.0.0/15",
@@ -20,6 +20,14 @@
       }
     ],
     "rules": [
+      {
+        "clash_mode": "direct",
+        "server": "local"
+      },
+      {
+        "clash_mode": "global",
+        "server": "google"
+      },
       {
         "query_type": "HTTPS",
         "action": "reject"
@@ -29,20 +37,42 @@
           "A",
           "AAAA"
         ],
+        "rule_set": "cn_domain",
         "server": "fakeip"
       },
       {
-        "rule_set": "geosite-cn",
+        "rule_set": "cn_domain",
         "server": "local"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip"
+          }
+        ],
+        "server": "google",
+        "client_subnet": "114.114.114.114/24"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip"
       }
     ],
-    "final": "",
-    "independent_cache": true
+    "final": "google",
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
+
   "route": {
-    "default_domain_resolver": {
-      "server":"local"
-      },
     "rules": [
       {
         "action": "sniff",
@@ -50,7 +80,8 @@
           "http",
           "tls",
           "quic",
-          "dns"
+          "dns",
+          "bittorrent"
         ],
         "timeout": "500ms"
       },
@@ -80,15 +111,27 @@
         "outbound": "direct"
       },
       {
-        "rule_set": ["direct_domain","oracle_domain","amazon_domain","apple_domain","games_domain"],        
+        "rule_set": [
+          "direct_domain",
+          "oracle_domain",
+          "amazon_domain",
+          "apple_domain",
+          "games_domain"
+        ],
         "outbound": "direct"
       },
       {
-        "rule_set": ["openai_domain","gemini_domain","tiktok_domain"],        
+        "rule_set": [
+          "openai_domain",
+          "gemini_domain"
+        ],
         "outbound": "openai"
       },
       {
-        "rule_set": "instagram_domain",        
+        "rule_set": [
+          "instagram_domain",
+          "tiktok_domain"
+        ],
         "outbound": "instagram"
       },
       {
@@ -101,7 +144,7 @@
           {
             "invert": true,
             "rule_set": [
-              "geosite-cn"
+              "cn_domain"
             ]
           }
         ],
@@ -111,7 +154,10 @@
         "action": "resolve"
       },
       {
-        "rule_set": ["geoip-cn","geosite-cn"],        
+        "rule_set": [
+          "cn_ip",
+          "cn_domain"
+        ],
         "outbound": "direct"
       }
     ],
@@ -194,23 +240,25 @@
         "download_detour": "direct"
       },
       {
-        "tag": "geoip-cn",
+        "tag": "cn_ip",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-cn",
+        "tag": "cn_domain",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "direct"
       }
     ],
+    "default_domain_resolver": "local",
     "auto_detect_interface": true,
     "final": "proxy"
   },
+
   "outbounds": [
     {
       "tag": "direct",
@@ -229,6 +277,7 @@
       "type": "selector"
     }
   ],
+
   "inbounds": [
     {
       "type": "tun",
@@ -253,22 +302,22 @@
       "listen_port": 7890
     }
   ],
+
   "experimental": {
     "clash_api": {
-      "external_controller": "0.0.0.0:9090",
+      "external_controller": "127.0.0.1:9090",
       "external_ui": "ui",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
       "external_ui_download_detour": "direct",
-      "secret": "",
-      "default_mode": "rule",
-      "access_control_allow_origin": "*",
-      "access_control_allow_private_network": false
+      "default_mode": "rule"
     },
     "cache_file": {
       "enabled": true,
+      "store_fakeip": true,
       "store_rdrc": true
     }
   },
+
   "log": {
     "disabled": false,
     "level": "info",
