@@ -71,7 +71,6 @@
     "independent_cache": true,
     "strategy": "prefer_ipv4"
   },
-
   "route": {
     "rules": [
       {
@@ -155,8 +154,8 @@
       },
       {
         "rule_set": [
-          "cn_ip",
-          "cn_domain"
+          "cn_domain",
+          "cn_ip"
         ],
         "outbound": "direct"
       }
@@ -258,7 +257,6 @@
     "auto_detect_interface": true,
     "final": "proxy"
   },
-
   "outbounds": [
     {
       "tag": "direct",
@@ -277,7 +275,6 @@
       "type": "selector"
     }
   ],
-
   "inbounds": [
     {
       "type": "tun",
@@ -302,7 +299,6 @@
       "listen_port": 7890
     }
   ],
-
   "experimental": {
     "clash_api": {
       "external_controller": "127.0.0.1:9090",
@@ -317,7 +313,6 @@
       "store_rdrc": true
     }
   },
-
   "log": {
     "disabled": false,
     "level": "info",

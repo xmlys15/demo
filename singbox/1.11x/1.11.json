@@ -23,9 +23,17 @@
     ],
     "rules": [
       {
-        "outbound": "any", 
+        "outbound": "any",
         "server": "local",
         "disable_cache": true
+      },
+      {
+        "clash_mode": "direct",
+        "server": "local"
+      },
+      {
+        "clash_mode": "global",
+        "server": "google"
       },
       {
         "query_type": "HTTPS",
@@ -36,15 +44,39 @@
           "A",
           "AAAA"
         ],
-        "server": "fakeip",
-        "rewrite_ttl": 1
+        "rule_set": "cn_domain",
+        "server": "fakeip"
       },
       {
         "rule_set": "cn_domain",
         "server": "local"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip"
+          }
+        ],
+        "server": "google",
+        "client_subnet": "114.114.114.114/24"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip"
       }
     ],
-    "independent_cache": true
+    "final": "google",
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
   "route": {
     "rules": [
@@ -54,7 +86,8 @@
           "http",
           "tls",
           "quic",
-          "dns"
+          "dns",
+          "bittorrent"
         ],
         "timeout": "500ms"
       },
@@ -76,23 +109,35 @@
         "action": "reject"
       },
       {
-        "protocol": "bittorrent",        
+        "protocol": "bittorrent",
         "outbound": "direct"
       },
       {
-        "ip_is_private": true,        
+        "ip_is_private": true,
         "outbound": "direct"
       },
       {
-        "rule_set": ["direct_domain","oracle_domain","amazon_domain","apple_domain","games_domain"],        
+        "rule_set": [
+          "direct_domain",
+          "oracle_domain",
+          "amazon_domain",
+          "apple_domain",
+          "games_domain"
+        ],
         "outbound": "direct"
       },
       {
-        "rule_set": ["openai_domain","gemini_domain","tiktok_domain"],        
+        "rule_set": [
+          "openai_domain",
+          "gemini_domain"
+        ],
         "outbound": "openai"
       },
       {
-        "rule_set": "instagram_domain",        
+        "rule_set": [
+          "instagram_domain",
+          "tiktok_domain"
+        ],
         "outbound": "instagram"
       },
       {
@@ -115,7 +160,10 @@
         "action": "resolve"
       },
       {
-        "rule_set": ["cn_ip","cn_domain"],        
+        "rule_set": [
+          "cn_domain",
+          "cn_ip"
+        ],
         "outbound": "direct"
       }
     ],
@@ -217,6 +265,10 @@
   },
   "outbounds": [
     {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
       "tag": "proxy",
       "type": "selector"
     },
@@ -227,10 +279,6 @@
     {
       "tag": "instagram",
       "type": "selector"
-    },
-    {
-      "tag": "direct",
-      "type": "direct"
     }
   ],
   "inbounds": [
@@ -259,7 +307,7 @@
   ],
   "experimental": {
     "clash_api": {
-      "external_controller": "0.0.0.0:9090",
+      "external_controller": "127.0.0.1:9090",
       "external_ui": "ui",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
       "external_ui_download_detour": "direct",
@@ -267,7 +315,8 @@
     },
     "cache_file": {
       "enabled": true,
-      "store_fakeip": true
+      "store_fakeip": true,
+      "store_rdrc": true
     }
   },
   "log": {
