@@ -5,7 +5,7 @@
     "listen_port": 443,
     "users": [
         {
-            "name": "SGP-anytls",
+            "name": "东京-anytls",
             "password": "8JCsPssfgS8tiRwiMlhARg=="
         }
     ],
