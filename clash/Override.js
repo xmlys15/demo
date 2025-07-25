@@ -1,4 +1,4 @@
-// 最后更新时间: 2025-07-13 23:00
+// 最后更新时间: 2025-07-25 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -108,21 +108,21 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "proxy",
+      "name": "PROXY",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(剩|过|直)).*$"
     },
     {
       ...groupBaseOption,
-      "name": "openai",
+      "name": "OPENAI",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(剩|过|直)).*$"
     },
     {
       ...groupBaseOption,
-      "name": "instagram",
+      "name": "INSTAGRAM",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(剩|过|直)).*$"
@@ -236,18 +236,18 @@ function main(config) {
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",    
     "RULE-SET,private_domain,DIRECT",
-    "RULE-SET,openai_domain,openai",
-    "RULE-SET,google-gemini_domain,openai",
-    "RULE-SET,tiktok_domain,openai",
-    "RULE-SET,instagram_domain,instagram",
+    "RULE-SET,openai_domain,OPENAI",
+    "RULE-SET,google-gemini_domain,OPENAI",
+    "RULE-SET,tiktok_domain,OPENAI",
+    "RULE-SET,instagram_domain,INSTAGRAM",
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,gfw_domain,proxy",
-    "RULE-SET,geolocation_!cn,proxy",
+    "RULE-SET,gfw_domain,PROXY",
+    "RULE-SET,geolocation_!cn,PROXY",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
-    "MATCH,proxy"
+    "MATCH,PROXY"
   ];
   // 返回修改后的配置
   return config;
