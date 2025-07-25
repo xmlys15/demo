@@ -115,14 +115,14 @@ function main(config) {
     },
     {
       ...groupBaseOption,
-      "name": "OPENAI",
+      "name": "OpenAI",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(剩|过|直)).*$"
     },
     {
       ...groupBaseOption,
-      "name": "INSTAGRAM",
+      "name": "Instagram",
       "type": "select",
       "include-all": true,
       "filter": "^(?!.*(剩|过|直)).*$"
@@ -236,10 +236,10 @@ function main(config) {
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",    
     "RULE-SET,private_domain,DIRECT",
-    "RULE-SET,openai_domain,OPENAI",
-    "RULE-SET,google-gemini_domain,OPENAI",
-    "RULE-SET,tiktok_domain,OPENAI",
-    "RULE-SET,instagram_domain,INSTAGRAM",
+    "RULE-SET,openai_domain,OpenAI",
+    "RULE-SET,google-gemini_domain,OpenAI",
+    "RULE-SET,tiktok_domain,Instagram",
+    "RULE-SET,instagram_domain,Instagram",
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
