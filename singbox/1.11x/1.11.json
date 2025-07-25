@@ -87,6 +87,7 @@
           "tls",
           "quic",
           "dns",
+          "ssh",
           "bittorrent"
         ],
         "timeout": "500ms"
@@ -109,7 +110,7 @@
         "action": "reject"
       },
       {
-        "protocol": "bittorrent",
+        "protocol": ["bittorrent","ssh"],
         "outbound": "direct"
       },
       {
