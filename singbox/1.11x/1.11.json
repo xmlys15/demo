@@ -28,11 +28,11 @@
         "disable_cache": true
       },
       {
-        "clash_mode": "direct",
+        "clash_mode": "Direct",
         "server": "local"
       },
       {
-        "clash_mode": "global",
+        "clash_mode": "Global",
         "server": "google"
       },
       {
@@ -110,12 +110,23 @@
         "action": "reject"
       },
       {
-        "protocol": ["bittorrent","ssh"],
+        "protocol": [
+          "bittorrent",
+          "ssh"
+        ],
         "outbound": "direct"
       },
       {
         "ip_is_private": true,
         "outbound": "direct"
+      },
+      {
+        "clash_mode": "Direct",
+        "server": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "server": "proxy"
       },
       {
         "rule_set": [

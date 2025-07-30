@@ -21,11 +21,11 @@
     ],
     "rules": [
       {
-        "clash_mode": "direct",
+        "clash_mode": "Direct",
         "server": "local"
       },
       {
-        "clash_mode": "global",
+        "clash_mode": "Global",
         "server": "google"
       },
       {
@@ -108,6 +108,14 @@
       {
         "ip_is_private": true,
         "outbound": "direct"
+      },
+      {
+        "clash_mode": "Direct",
+        "server": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "server": "proxy"
       },
       {
         "rule_set": [
