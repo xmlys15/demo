@@ -31,7 +31,7 @@ function main(config) {
   config["tcp-concurrent"] = true;
   config["allow-lan"] = true;
   config["bind-address"] = "*";
-  config["ipv6"] = true;
+  config["ipv6"] = false;
   config["log-level"] = "info";
   config["unified-delay"] = true;
   config["find-process-mode"] = "strict";
@@ -53,23 +53,33 @@ function main(config) {
   config["dns"] = {
     "enable": true,
     "listen": "0.0.0.0:1053",
-    "ipv6": true,
+    "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter": ["*", "+.lan", "+.local","rule-set:myself"],
-    "default-nameserver": ["223.5.5.5"],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"], 
+    "fake-ip-filter": [
+        "*",
+        "+.lan",
+        "+.local",
+        "rule-set:myself",
+        "rule-set:private_domain",
+        "rule-set:apple_domain",
+        "rule-set:oracle_domain",
+        "rule-set:amazon_domain",
+        "rule-set:cn_domain"
+    ],
+    "default-nameserver": ["tls://223.5.5.5:853"],
+    "proxy-server-nameserver": ["tls://8.8.8.8:853"], 
     "nameserver": ["221.12.1.227", "221.12.33.227"]
   };
 
   // 覆盖 geodata 配置
-  // config["geodata-mode"] = false;
-  // config["geox-url"] = {
-  //   "geoip": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
-  //   "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-  //   "mmdb": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb",
-  //   "asn": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb"
-  // };
+  config["geodata-mode"] = true;
+  config["geo-auto-update"] = true;
+  config["geo-update-interval"] = 24;
+  config["geox-url"] = {
+    "geoip": "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
+    "geosite": "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  };
 
   // 覆盖 sniffer 配置
   config["sniffer"] = {
@@ -96,7 +106,7 @@ function main(config) {
     "enable": true,
     "stack": "mixed",
     "dns-hijack": [
-      "udp://any:53",
+      "any:53",
       "tcp://any:53"
     ],
     "auto-route": true,
@@ -233,6 +243,9 @@ function main(config) {
 
   // 覆盖规则
   config["rules"] = [
+      // 禁用非中国 QUIC（UDP 443）流量，防泄露
+    "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT",
+    "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT",
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",    
     "RULE-SET,private_domain,DIRECT",
