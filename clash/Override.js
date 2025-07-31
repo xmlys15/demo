@@ -77,8 +77,8 @@ function main(config) {
   config["geo-auto-update"] = true;
   config["geo-update-interval"] = 24;
   config["geox-url"] = {
-    "geoip": "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
-    "geosite": "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+    "geoip": "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
+    "geosite": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
   };
 
   // 覆盖 sniffer 配置
