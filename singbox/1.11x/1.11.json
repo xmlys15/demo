@@ -122,11 +122,11 @@
       },
       {
         "clash_mode": "Direct",
-        "server": "direct"
+        "outbound": "direct"
       },
       {
         "clash_mode": "Global",
-        "server": "proxy"
+        "outbound": "proxy"
       },
       {
         "rule_set": [
