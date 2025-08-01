@@ -47,7 +47,7 @@ function main(config) {
   config["secret"] = "",
   config["external-ui"] = "ui",
   config["external-ui-name"] = "zashboard",
-  config["external-ui-url"] = "https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
+  config["external-ui-url"] = "https://github.zjzzy.cloudns.org/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
 
   // 覆盖 dns 配置
   config["dns"] = {
@@ -67,9 +67,10 @@ function main(config) {
         "rule-set:amazon_domain",
         "rule-set:cn_domain"
     ],
-    "default-nameserver": ["tls://223.5.5.5:853"],
-    "proxy-server-nameserver": ["tls://8.8.8.8:853"], 
-    "nameserver": ["221.12.1.227", "221.12.33.227"]
+    "default-nameserver": ["223.5.5.5"],
+    "direct-nameserver": ["system"],
+    "proxy-server-nameserver": ["system"], 
+    "nameserver": ["https://dns.cloudflare.com/dns-query", "https://dns.google/dns-query"]
   };
 
   // 覆盖 geodata 配置
