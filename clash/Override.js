@@ -37,17 +37,17 @@ function main(config) {
   config["find-process-mode"] = "strict";
   config["global-client-fingerprint"] = "chrome";
   config["keep-alive-interval"] = 1800;
-  config["profile"] =  {
+  config["profile"] = {
     "store-selected": true,
     "store-fake-ip": true
   };
-  
+
   // 覆盖控制面板
   config["external-controller"] = 9090,
-  config["secret"] = "",
-  config["external-ui"] = "ui",
-  config["external-ui-name"] = "zashboard",
-  config["external-ui-url"] = "https://github.zjzzy.cloudns.org/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
+    config["secret"] = "",
+    config["external-ui"] = "ui",
+    config["external-ui-name"] = "zashboard",
+    config["external-ui-url"] = "https://github.zjzzy.cloudns.org/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
 
   // 覆盖 dns 配置
   config["dns"] = {
@@ -57,13 +57,19 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter": [
-        "*",
-        "+.lan",
-        "+.local"
+      "*",
+      "+.lan",
+      "+.local",
+      "rule-set:myself",
+      "rule-set:private_domain",
+      "rule-set:apple_domain",
+      "rule-set:oracle_domain",
+      "rule-set:amazon_domain",
+      "rule-set:cn_domain"
     ],
     "default-nameserver": ["https://223.5.5.5/dns-query"],
-    "direct-nameserver": ["221.12.1.227","221.12.33.227"],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"], 
+    "direct-nameserver": ["221.12.1.227", "221.12.33.227"],
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
     "nameserver": ["https://dns.cloudflare.com/dns-query", "https://dns.google/dns-query"]
   };
 
@@ -93,7 +99,7 @@ function main(config) {
       }
     },
     "force-domain": ["+.v2ex.com"],
-    "skip-domain": ["Mijia Cloud","+.push.apple.com"]
+    "skip-domain": ["Mijia Cloud", "+.push.apple.com"]
   };
 
   // 覆盖 tun 配置
@@ -238,11 +244,11 @@ function main(config) {
 
   // 覆盖规则
   config["rules"] = [
-      // 禁用非中国 QUIC（UDP 443）流量，防泄露
+    // 禁用非中国 QUIC（UDP 443）流量，防泄露
     // "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT",
     // "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT",
     "RULE-SET,myself,DIRECT",
-    "RULE-SET,ads_domain,REJECT",    
+    "RULE-SET,ads_domain,REJECT",
     "RULE-SET,private_domain,DIRECT",
     "RULE-SET,openai_domain,OpenAI",
     "RULE-SET,google-gemini_domain,OpenAI",
