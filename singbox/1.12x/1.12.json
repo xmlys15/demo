@@ -76,15 +76,7 @@
   "route": {
     "rules": [
       {
-        "action": "sniff",
-        "sniffer": [
-          "http",
-          "tls",
-          "quic",
-          "dns",
-          "bittorrent"
-        ],
-        "timeout": "500ms"
+        "action": "sniff"
       },
       {
         "type": "logical",
@@ -104,7 +96,7 @@
         "action": "reject"
       },
       {
-        "protocol": "bittorrent",
+        "protocol": ["bittorrent","ssh"],
         "outbound": "direct"
       },
       {
