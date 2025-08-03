@@ -59,13 +59,7 @@ function main(config) {
     "fake-ip-filter": [
         "*",
         "+.lan",
-        "+.local",
-        "rule-set:myself",
-        "rule-set:private_domain",
-        "rule-set:apple_domain",
-        "rule-set:oracle_domain",
-        "rule-set:amazon_domain",
-        "rule-set:cn_domain"
+        "+.local"
     ],
     "default-nameserver": ["https://223.5.5.5/dns-query"],
     "direct-nameserver": ["221.12.1.227","221.12.33.227"],
