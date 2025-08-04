@@ -67,10 +67,8 @@ function main(config) {
       "rule-set:amazon_domain",
       "rule-set:cn_domain"
     ],
-    "default-nameserver": ["https://223.5.5.5/dns-query"],
-    "direct-nameserver": ["221.12.1.227", "221.12.33.227"],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
-    "nameserver": ["https://dns.cloudflare.com/dns-query", "https://dns.google/dns-query"]
+    "default-nameserver": ["https://223.5.5.5/dns-query","https://1.12.12.12/dns-query"],
+    "nameserver": ["https://dns.alidns.com/dns-query", "https://doh.pub/dns-query"]
   };
 
   // 覆盖 geodata 配置
