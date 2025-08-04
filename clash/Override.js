@@ -68,6 +68,7 @@ function main(config) {
       "rule-set:cn_domain"
     ],
     "default-nameserver": ["https://223.5.5.5/dns-query","https://1.12.12.12/dns-query"],
+    "direct-nameserver":"system",
     "nameserver": ["https://dns.alidns.com/dns-query", "https://doh.pub/dns-query"]
   };
 
