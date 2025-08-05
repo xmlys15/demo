@@ -43,7 +43,7 @@ function main(config) {
   };
 
   // 覆盖控制面板
-  config["external-controller"] = 9090,
+  config["external-controller"] = "0.0.0.0:9090",
     config["secret"] = "",
     config["external-ui"] = "ui",
     config["external-ui-name"] = "zashboard",
