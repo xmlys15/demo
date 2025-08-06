@@ -60,25 +60,11 @@ function main(config) {
       "*",
       "+.lan",
       "+.local",
-      "rule-set:myself",
-      "rule-set:private_domain",
-      "rule-set:apple_domain",
-      "rule-set:oracle_domain",
-      "rule-set:amazon_domain",
-      "rule-set:cn_domain"
+      "dns.msftncsi.com"
     ],
-    "default-nameserver": ["https://223.5.5.5/dns-query","https://1.12.12.12/dns-query"],
-    "nameserver": ["https://dns.alidns.com/dns-query", "https://doh.pub/dns-query"]
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://doh.pub/dns-query"],
+    "nameserver": ["https://223.5.5.5/dns-query", "https://doh.pub/dns-query"]
   };
-
-  // 覆盖 geodata 配置
-  // config["geodata-mode"] = true;
-  // config["geo-auto-update"] = true;
-  // config["geo-update-interval"] = 24;
-  // config["geox-url"] = {
-  //   "geoip": "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
-  //   "geosite": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  // };
 
   // 覆盖 sniffer 配置
   config["sniffer"] = {
@@ -103,7 +89,7 @@ function main(config) {
   // 覆盖 tun 配置
   config["tun"] = {
     "enable": true,
-    "stack": "mixed",
+    "stack": "system",
     "dns-hijack": [
       "any:53",
       "tcp://any:53"
@@ -242,9 +228,6 @@ function main(config) {
 
   // 覆盖规则
   config["rules"] = [
-    // 禁用非中国 QUIC（UDP 443）流量，防泄露
-    // "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT",
-    // "AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT",
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",
     "RULE-SET,private_domain,DIRECT",
