@@ -198,19 +198,12 @@ function main(config) {
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.mrs",
       "path": "./rules/amazon_domain.mrs"
     },
-    "gfw_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs",
-      "path": "./rules/gfw_domain.mrs"
-    },
-    "geolocation_!cn": {
+    "proxy_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs",
-      "path": "./rules/geolocation_!cn.mrs"
+      "path": "./rules/proxy_domain.mrs"
     },
     "cn_domain": {
       ...ruleProviderCommon,
@@ -240,8 +233,7 @@ function main(config) {
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,gfw_domain,PROXY",
-    "RULE-SET,geolocation_!cn,PROXY",
+    "RULE-SET,proxy_domain,PROXY",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
     "MATCH,PROXY"
