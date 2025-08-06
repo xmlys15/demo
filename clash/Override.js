@@ -1,4 +1,4 @@
-// 最后更新时间: 2025-07-25 23:00
+// 最后更新时间: 2025-08-06 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -60,10 +60,12 @@ function main(config) {
       "*",
       "+.lan",
       "+.local",
-      "dns.msftncsi.com"
+      "time.*.com",
+      "+.msftncsi.com",
+      "+.msftconnecttest.com"
     ],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://doh.pub/dns-query"],
-    "nameserver": ["https://223.5.5.5/dns-query", "https://doh.pub/dns-query"]
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
+    "nameserver": ["221.12.1.227", "221.12.33.227"]
   };
 
   // 覆盖 sniffer 配置
@@ -83,7 +85,7 @@ function main(config) {
       }
     },
     "force-domain": ["+.v2ex.com"],
-    "skip-domain": ["Mijia Cloud", "+.push.apple.com"]
+    "skip-domain": ["+.push.apple.com"]
   };
 
   // 覆盖 tun 配置
