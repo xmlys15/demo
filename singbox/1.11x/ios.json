@@ -19,12 +19,15 @@
         "action": "reject"
       },
       {
-        "rule_set": "cn_domain",
+        "rule_set": [
+          "cn_domain",
+          "direct_domain",
+          "oracle_domain",
+          "amazon_domain",
+          "apple_domain",
+          "games_domain"
+        ],
         "server": "local"
-      },
-      {
-        "rule_set": "proxy_domain",
-        "server": "google"
       }
     ],
     "final": "google",
@@ -63,22 +66,6 @@
         "outbound": "direct"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "proxy_domain"
-          },
-          {
-            "invert": true,
-            "rule_set": [
-              "cn_domain"
-            ]
-          }
-        ],
-        "outbound": "proxy"
-      },
-      {
         "action": "resolve"
       },
       {
@@ -112,34 +99,6 @@
         "download_detour": "direct"
       },
       {
-        "tag": "openai_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "gemini_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google-gemini.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "tiktok_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tiktok.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "instagram_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
-        "download_detour": "direct"
-      },
-      {
         "tag": "oracle_domain",
         "type": "remote",
         "format": "binary",
@@ -161,10 +120,10 @@
         "download_detour": "direct"
       },
       {
-        "tag": "proxy_domain",
+        "tag": "cn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "direct"
       },
       {
@@ -172,13 +131,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "cn_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "direct"
       }
     ],
@@ -198,10 +150,10 @@
   "inbounds": [
     {
       "type": "tun",
-      "address": [  
-        "172.19.0.1/30",  
-        "fdfe:dcba:9876::1/126"  
-      ],  
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
       "stack": "mixed",
       "auto_route": true,
       "strict_route": true,
