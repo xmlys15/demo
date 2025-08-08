@@ -40,7 +40,9 @@ config.outbounds.forEach(group => {
   let newTags = null;
 
   if (group.tag === 'proxy') {
-    newTags = getTags(proxies, /^((?![剩过直]).)*$/);
+    // 您的选择：不使用正则表达式过滤，获取所有节点的tag
+    // 这样可以确保所有节点都被添加到 proxy 分组中
+    newTags = getTags(proxies);
   }
   
   if (newTags !== null) {
