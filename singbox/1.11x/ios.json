@@ -193,6 +193,10 @@
     {
       "tag": "direct",
       "type": "direct"
+    },
+    {
+      "tag": "proxy",
+      "type": "selector"
     }
   ],
   "inbounds": [
