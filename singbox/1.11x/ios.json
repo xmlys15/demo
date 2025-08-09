@@ -15,6 +15,11 @@
     ],
     "rules": [
       {
+        "outbound": "any",
+        "server": "local",
+        "disable_cache": true
+      },
+      {
         "query_type": "HTTPS",
         "action": "reject"
       },
