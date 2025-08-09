@@ -36,7 +36,7 @@
       }
     ],
     "final": "google",
-    "strategy": "prefer_ipv4",
+    "strategy": "ipv4_only",
     "cache_capacity": 1024
   },
   "route": {
