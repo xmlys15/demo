@@ -1,5 +1,10 @@
 {
   "dns": {
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
     "servers": [
       {
         "tag": "google",
@@ -11,6 +16,10 @@
         "tag": "local",
         "address": "223.5.5.5",
         "detour": "direct"
+      },
+      {
+        "tag": "fakeip",
+        "address": "fakeip"
       }
     ],
     "rules": [
@@ -20,24 +29,43 @@
         "disable_cache": true
       },
       {
-        "query_type": "HTTPS",
-        "action": "reject"
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "rule_set": "cn_domain",
+        "server": "fakeip"
       },
       {
-        "rule_set": [
-          "cn_domain",
-          "direct_domain",
-          "oracle_domain",
-          "amazon_domain",
-          "apple_domain",
-          "games_domain"
-        ],
+        "rule_set": "cn_domain",
         "server": "local"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip"
+          }
+        ],
+        "server": "google",
+        "client_subnet": "114.114.114.114/24"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip"
       }
     ],
     "final": "google",
-    "strategy": "ipv4_only",
-    "cache_capacity": 1024
+    "strategy": "prefer_ipv4",
+    "independent_cache": true
   },
   "route": {
     "rules": [
@@ -69,6 +97,10 @@
           "games_domain"
         ],
         "outbound": "direct"
+      },
+      {
+        "rule_set": "proxy_domain",
+        "outbound": "proxy"
       },
       {
         "action": "resolve"
@@ -125,6 +157,12 @@
         "download_detour": "direct"
       },
       {
+        "tag": "proxy_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs"
+      },
+      {
         "tag": "cn_domain",
         "type": "remote",
         "format": "binary",
@@ -179,6 +217,7 @@
   "experimental": {
     "cache_file": {
       "enabled": true,
+      "store_fakeip": true,
       "store_rdrc": true
     }
   },
