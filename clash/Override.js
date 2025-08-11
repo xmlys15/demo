@@ -57,7 +57,6 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter": [
-      "*",
       "+.lan",
       "+.local",
       "time.*.com",
@@ -65,18 +64,9 @@ function main(config) {
       "+.msftconnecttest.com"
     ],
     "nameserver": [
-      "https://doh.pub/dns-query",
-      "https://dns.alidns.com/dns-query"
-    ],
-    "fallback": [
       "221.12.1.227",
-      "223.5.5.5"
+      "221.12.33.227"
     ],
-    "fallback-filter": {
-      "geodata-mode": true,
-      "geoip-code": "CN",
-      "ipcidr": ["240.0.0.0/4"]
-    },
     "proxy-server-nameserver": ["https://223.5.5.5/dns-query"]
   };
 
@@ -103,7 +93,7 @@ function main(config) {
   // 覆盖 tun 配置
   config["tun"] = {
     "enable": true,
-    "stack": "mixed",
+    "stack": "system",
     "dns-hijack": [
       "any:53",
       "tcp://any:53"
