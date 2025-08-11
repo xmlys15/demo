@@ -1,4 +1,4 @@
-// 最后更新时间: 2025-08-06 23:00
+// 最后更新时间: 2025-08-11 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -34,9 +34,9 @@ function main(config) {
   config["ipv6"] = false;
   config["log-level"] = "info";
   config["unified-delay"] = true;
-  config["find-process-mode"] = "strict";
+  config["find-process-mode"] = "off";
   config["global-client-fingerprint"] = "chrome";
-  config["keep-alive-interval"] = 1800;
+  config["keep-alive-interval"] = 15;
   config["profile"] = {
     "store-selected": true,
     "store-fake-ip": true
@@ -64,8 +64,20 @@ function main(config) {
       "+.msftncsi.com",
       "+.msftconnecttest.com"
     ],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
-    "nameserver": ["221.12.1.227", "221.12.33.227"]
+    "nameserver": [
+      "https://doh.pub/dns-query",
+      "https://dns.alidns.com/dns-query"
+    ],
+    "fallback": [
+      "221.12.1.227",
+      "223.5.5.5"
+    ],
+    "fallback-filter": {
+      "geodata-mode": true,
+      "geoip-code": "CN",
+      "ipcidr": ["240.0.0.0/4"]
+    },
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"]
   };
 
   // 覆盖 sniffer 配置
@@ -91,7 +103,7 @@ function main(config) {
   // 覆盖 tun 配置
   config["tun"] = {
     "enable": true,
-    "stack": "system",
+    "stack": "mixed",
     "dns-hijack": [
       "any:53",
       "tcp://any:53"
@@ -105,24 +117,9 @@ function main(config) {
   config["proxy-groups"] = [
     {
       ...groupBaseOption,
-      "name": "PROXY",
+      "name": "proxy",
       "type": "select",
-      "include-all": true,
-      "filter": "^(?!.*(剩|过|直)).*$"
-    },
-    {
-      ...groupBaseOption,
-      "name": "OpenAI",
-      "type": "select",
-      "include-all": true,
-      "filter": "^(?!.*(剩|过|直)).*$"
-    },
-    {
-      ...groupBaseOption,
-      "name": "Instagram",
-      "type": "select",
-      "include-all": true,
-      "filter": "^(?!.*(剩|过|直)).*$"
+      "include-all": true
     }
   ];
 
@@ -139,84 +136,56 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.mrs",
+      "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs",
       "path": "./rules/ads_domain.mrs"
     },
     "private_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs",
       "path": "./rules/private_domain.mrs"
-    },
-    "openai_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs",
-      "path": "./rules/openai_domain.mrs"
-    },
-    "google-gemini_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs",
-      "path": "./rules/google-gemini_domain.mrs"
-    },
-    "tiktok_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs",
-      "path": "./rules/tiktok_domain.mrs"
-    },
-    "instagram_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs",
-      "path": "./rules/instagram_domain.mrs"
     },
     "apple_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs",
       "path": "./rules/apple_domain.mrs"
     },
     "oracle_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/oracle.mrs",
       "path": "./rules/oracle_domain.mrs"
     },
     "amazon_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amazon.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/amazon.mrs",
       "path": "./rules/amazon_domain.mrs"
     },
     "proxy_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs",
       "path": "./rules/proxy_domain.mrs"
     },
     "cn_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs",
       "path": "./rules/cn_domain.mrs"
     },
     "cn_ip": {
       ...ruleProviderCommon,
       "behavior": "ipcidr",
       "format": "mrs",
-      "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
+      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs",
       "path": "./rules/cn_ip.mrs"
     }
   };
@@ -226,17 +195,13 @@ function main(config) {
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",
     "RULE-SET,private_domain,DIRECT",
-    "RULE-SET,openai_domain,OpenAI",
-    "RULE-SET,google-gemini_domain,OpenAI",
-    "RULE-SET,tiktok_domain,Instagram",
-    "RULE-SET,instagram_domain,Instagram",
     "RULE-SET,apple_domain,DIRECT",
     "RULE-SET,oracle_domain,DIRECT",
     "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,proxy_domain,PROXY",
+    "RULE-SET,proxy_domain,proxy",
     "RULE-SET,cn_domain,DIRECT",
     "RULE-SET,cn_ip,DIRECT",
-    "MATCH,PROXY"
+    "MATCH,proxy"
   ];
   // 返回修改后的配置
   return config;
