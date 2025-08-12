@@ -222,7 +222,9 @@
         "download_detour": "direct"
       }
     ],
-    "default_domain_resolver": "local",
+    "default_domain_resolver": {
+      "server": "local"
+    },
     "auto_detect_interface": true,
     "final": "proxy"
   },
