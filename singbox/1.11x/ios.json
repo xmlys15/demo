@@ -28,15 +28,15 @@
         "server": "local"
       },
       {
-        "rule_set": "cn_domain",
-        "server": "local"
-      },
-      {
         "query_type": [
           "A",
           "AAAA"
         ],
         "server": "fakeip"
+      },
+      {
+        "rule_set": "cn_domain",
+        "server": "local"
       }
     ],
     "final": "google",
@@ -85,7 +85,6 @@
         "rule_set": [
           "cn_ip",
           "cn_domain"
-          
         ],
         "outbound": "direct"
       }
@@ -195,8 +194,7 @@
   "experimental": {
     "cache_file": {
       "enabled": true,
-      "store_fakeip": true,
-      "store_rdrc": true
+      "store_fakeip": true
     }
   },
   "log": {
