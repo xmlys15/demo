@@ -19,7 +19,7 @@
         "inet4_range": "198.18.0.0/15",
         "inet6_range": "fc00::/18"
       },
-            {
+      {
         "tag": "hosts",
         "type": "hosts",
         "predefined": {
@@ -105,7 +105,10 @@
         "action": "reject"
       },
       {
-        "protocol": ["bittorrent","ssh"],
+        "protocol": [
+          "bittorrent",
+          "ssh"
+        ],
         "outbound": "direct"
       },
       {
@@ -222,9 +225,7 @@
         "download_detour": "direct"
       }
     ],
-    "default_domain_resolver": {
-      "server": "local"
-    },
+    "default_domain_resolver": "local",
     "auto_detect_interface": true,
     "final": "proxy"
   },
