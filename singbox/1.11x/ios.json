@@ -176,14 +176,7 @@
       "mtu": 1500,
       "stack": "mixed",
       "auto_route": true,
-      "strict_route": true,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 7890
-        }
-      }
+      "strict_route": true
     },
     {
       "type": "mixed",
