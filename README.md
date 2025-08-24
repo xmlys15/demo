@@ -9,29 +9,22 @@
 ```
 .
 ├── mihomo/
-│   └── config.yaml       # mihomo 的主配置文件
-│   └── other-rules.yaml  # (可选) 其他自定义规则文件
+│   └── Override.js       # mihomo 的主配置文件
 │
 ├── sing-box/
 │   └── config.json       # sing-box 的主配置文件
+│   └── config.js         # 配套脚本,可以在sub-store组合成完整配置文件。
 │
-└── README.md             # 你现在看到的文件
-```
+└── README.md             # 
 
-*(请根据你的实际文件结构修改以上示意图)*
-
----
 
 ## 🚀 使用说明
 
 ### Mihomo
 
 1.  **本地使用**:
-    将 `mihomo/` 目录下的 `config.yaml` 及其他相关配置文件复制到你的 mihomo 配置文件夹中。
+    将 `mihomo/` 目录下的 `Override.js` 用于sub-store。
 
-2.  **远程订阅**:
-    你也可以在 mihomo 客户端中，通过使用本仓库文件的 Raw 链接来进行远程加载。
-    * `config.yaml` 的 Raw 链接示例: `https://raw.githubusercontent.com/你的用户名/你的仓库名/main/mihomo/config.yaml`
 
 ### sing-box
 

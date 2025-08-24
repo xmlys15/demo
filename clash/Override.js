@@ -125,9 +125,9 @@ function main(config) {
     "ads_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
-      "format": "mrs",
-      "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs",
-      "path": "./rules/ads_domain.mrs"
+      "format": "yaml",
+      "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
+      "path": "./rules/ads_domain.yaml"
     },
     "private_domain": {
       ...ruleProviderCommon,
