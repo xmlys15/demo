@@ -2,7 +2,8 @@
   "dns": {
     "fakeip": {
       "enabled": true,
-      "inet4_range": "198.18.0.0/15"
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
     },
     "servers": [
       {
@@ -39,8 +40,8 @@
       }
     ],
     "final": "google",
-    "strategy": "ipv4_only",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
   "route": {
     "rules": [
