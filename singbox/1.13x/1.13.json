@@ -49,6 +49,11 @@
             },
             {
                 "rule_set": [
+                    "direct_domain",
+                    "oracle_domain",
+                    "amazon_domain",
+                    "apple_domain",
+                    "games_domain",
                     "cn_domain"
                 ],
                 "server": "local"
