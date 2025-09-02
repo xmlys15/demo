@@ -190,7 +190,7 @@ function main(config) {
     "RULE-SET,amazon_domain,DIRECT",
     "RULE-SET,proxy_domain,proxy",
     "RULE-SET,cn_domain,DIRECT",
-    "RULE-SET,cn_ip,DIRECT",
+    "RULE-SET,cn_ip,DIRECT,no-resolve",
     "MATCH,proxy"
   ];
   // 返回修改后的配置
