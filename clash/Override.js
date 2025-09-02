@@ -31,7 +31,7 @@ function main(config) {
   config["tcp-concurrent"] = true;
   config["allow-lan"] = true;
   config["bind-address"] = "*";
-  config["ipv6"] = false;
+  config["ipv6"] = true;
   config["log-level"] = "info";
   config["unified-delay"] = true;
   config["find-process-mode"] = "off";
@@ -53,7 +53,7 @@ function main(config) {
   config["dns"] = {
     "enable": true,
     "listen": "0.0.0.0:1053",
-    "ipv6": false,
+    "ipv6": true,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter": [
