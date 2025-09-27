@@ -1,10 +1,4 @@
 {
-    "services": [
-        {
-            "type": "resolved",
-            "tag": "resolved"
-        }
-    ],
     "dns": {
         "servers": [
             {
@@ -34,12 +28,6 @@
                 "type": "fakeip",
                 "inet4_range": "198.18.0.0/15",
                 "inet6_range": "fc00::/18"
-            },
-            {
-                "type": "resolved",
-                "tag": "resolved",
-                "service": "resolved",
-                "accept_default_resolvers": true
             }
         ],
         "rules": [
