@@ -91,10 +91,14 @@ function main(config) {
         "223.5.5.5",
         "119.29.29.29"
       ],
-      "geosite:cn,amazon,oracle,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker,myself": [
+      "geosite:cn,amazon,oracle,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker": [
         "221.12.1.227",
         "221.12.33.227"
-      ]
+      ],
+      "rule-set:custom-direct-domain":[
+        "221.12.1.227",
+        "221.12.33.227"
+      ],
     }
   };
 
