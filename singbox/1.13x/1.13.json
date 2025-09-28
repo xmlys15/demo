@@ -194,10 +194,8 @@
             "tag": "GLOBAL",
             "type": "selector",
             "select": [
-                "proxy",
                 "direct"
-            ],
-            "default": "proxy"
+            ]
         }
     ],
     "inbounds": [
