@@ -10,8 +10,8 @@
             },
             {
                 "tag": "local",
-                "type": "udp",
-                "server": "221.12.1.227"
+                "type": "https",
+                "server": "223.5.5.5"
             },
             {
                 "tag": "hosts",
