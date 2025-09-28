@@ -163,11 +163,10 @@ function main(config) {
   config["rules"] = [
     "GEOIP,private,DIRECT,no-resolve",
     "GEOSITE,private,DIRECT",
-
     "RULE-SET,myself,DIRECT",
+    "RULE-SET,ads_domain,REJECT",
     "GEOSITE,tracker,DIRECT",
     "GEOSITE,category-pt,DIRECT",
-    "RULE-SET,ads_domain,REJECT",
     "GEOSITE,onedrive,DIRECT",
     "GEOSITE,microsoft@cn,DIRECT",
     "GEOSITE,steam@cn,DIRECT",
@@ -177,7 +176,6 @@ function main(config) {
     "GEOSITE,amazon,DIRECT",
     "GEOSITE,google,proxy",
     "GEOSITE,cn,DIRECT",
-
     "GEOIP,CN,DIRECT,no-resolve",
 
     "MATCH,proxy"
