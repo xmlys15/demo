@@ -95,7 +95,7 @@ function main(config) {
         "221.12.1.227",
         "221.12.33.227"
       ],
-      "rule-set:custom-direct-domain":[
+      "rule-set:myself":[
         "221.12.1.227",
         "221.12.33.227"
       ],
