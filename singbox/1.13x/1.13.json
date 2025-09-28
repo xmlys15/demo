@@ -32,6 +32,14 @@
         ],
         "rules": [
             {
+                "clash_mode": "Direct",
+                "server": "local"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "google"
+            },
+            {
                 "query_type": "HTTPS",
                 "action": "reject"
             },
@@ -87,6 +95,14 @@
             {
                 "ip_is_private": true,
                 "outbound": "direct"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "GLOBAL"
             },
             {
                 "rule_set": [
@@ -169,7 +185,19 @@
         },
         {
             "tag": "proxy",
-            "type": "selector"
+            "type": "selector",
+            "select": [
+                "direct"
+            ]
+        },
+        {
+            "tag": "GLOBAL",
+            "type": "selector",
+            "select": [
+                "proxy",
+                "direct"
+            ],
+            "default": "proxy"
         }
     ],
     "inbounds": [
