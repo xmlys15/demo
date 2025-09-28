@@ -42,6 +42,18 @@ function main(config) {
     "store-fake-ip": true
   };
 
+  // 覆盖GEO及更新相关配置
+  config["geodata-mode"] = true;
+  config["geodata-loader"] = "standard";
+  config["geo-auto-update"] = true;
+  config["geo-update-interval"] = 24;
+  config["geox-url"] = {
+    "geoip": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat",
+    "geosite": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat",
+    "mmdb": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb",
+    "asn": "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+  };
+
   // 覆盖控制面板
   config["external-controller"] = "0.0.0.0:9090",
     config["secret"] = "",
@@ -61,13 +73,29 @@ function main(config) {
       "+.local",
       "time.*.com",
       "+.msftncsi.com",
+      "+.windowsupdate.com",
       "+.msftconnecttest.com"
     ],
-    "nameserver": [
+    "default-nameserver": [
       "221.12.1.227",
       "221.12.33.227"
     ],
-    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"]
+    "nameserver": [
+      "https://dns.cloudflare.com/dns-query",
+      "https://dns.google/dns-query"
+    ],
+    // 分策略 DNS
+    "nameserver-policy": {
+      "geosite:google": "nameserver",
+      "geosite:apple": [
+        "223.5.5.5",
+        "119.29.29.29"
+      ],
+      "geosite:cn,amazon,oracle,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker,myself": [
+        "221.12.1.227",
+        "221.12.33.227"
+      ]
+    }
   };
 
   // 覆盖 sniffer 配置
@@ -128,71 +156,33 @@ function main(config) {
       "format": "yaml",
       "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
       "path": "./rules/ads_domain.yaml"
-    },
-    "private_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs",
-      "path": "./rules/private_domain.mrs"
-    },
-    "apple_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs",
-      "path": "./rules/apple_domain.mrs"
-    },
-    "oracle_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/oracle.mrs",
-      "path": "./rules/oracle_domain.mrs"
-    },
-    "amazon_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/amazon.mrs",
-      "path": "./rules/amazon_domain.mrs"
-    },
-    "proxy_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs",
-      "path": "./rules/proxy_domain.mrs"
-    },
-    "cn_domain": {
-      ...ruleProviderCommon,
-      "behavior": "domain",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs",
-      "path": "./rules/cn_domain.mrs"
-    },
-    "cn_ip": {
-      ...ruleProviderCommon,
-      "behavior": "ipcidr",
-      "format": "mrs",
-      "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs",
-      "path": "./rules/cn_ip.mrs"
     }
   };
 
   // 覆盖规则
   config["rules"] = [
+    "GEOIP,private,DIRECT,no-resolve",
+    "GEOSITE,private,DIRECT",
+
     "RULE-SET,myself,DIRECT",
+    "GEOSITE,tracker,DIRECT",
+    "GEOSITE,category-pt,DIRECT",
     "RULE-SET,ads_domain,REJECT",
-    "RULE-SET,private_domain,DIRECT",
-    "RULE-SET,apple_domain,DIRECT",
-    "RULE-SET,oracle_domain,DIRECT",
-    "RULE-SET,amazon_domain,DIRECT",
-    "RULE-SET,proxy_domain,proxy",
-    "RULE-SET,cn_domain,DIRECT",
-    "RULE-SET,cn_ip,DIRECT,no-resolve",
+    "GEOSITE,onedrive,DIRECT",
+    "GEOSITE,microsoft@cn,DIRECT",
+    "GEOSITE,steam@cn,DIRECT",
+    "GEOSITE,category-games@cn,DIRECT",
+    "GEOSITE,apple,DIRECT",
+    "GEOSITE,oracle,DIRECT",
+    "GEOSITE,amazon,DIRECT",
+    "GEOSITE,google,proxy",
+    "GEOSITE,cn,DIRECT",
+
+    "GEOIP,CN,DIRECT,no-resolve",
+
     "MATCH,proxy"
   ];
+
   // 返回修改后的配置
   return config;
 }
