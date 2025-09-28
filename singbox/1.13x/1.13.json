@@ -185,17 +185,11 @@
         },
         {
             "tag": "proxy",
-            "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
+            "type": "selector"
         },
         {
             "tag": "GLOBAL",
-            "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
+            "type": "selector"
         }
     ],
     "inbounds": [
