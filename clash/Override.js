@@ -119,7 +119,7 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://raw.github.com/xmlys15/demo/master/clash/mydirect.yaml",
+      "url": "https://raw.githubusercontent.com/xmlys15/demo/master/clash/mydirect.yaml",
       "path": "./rules/myself.yaml"
     },
     "ads_domain": {
