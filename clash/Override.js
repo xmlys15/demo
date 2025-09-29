@@ -76,13 +76,18 @@ function main(config) {
       "+.windowsupdate.com",
       "+.msftconnecttest.com"
     ],
-    "proxy-server-nameserver":["https://223.5.5.5/dns-query"],
-    "nameserver": ["tls://8.8.4.4","tls://1.0.0.1"],
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
+    "nameserver": ["tls://8.8.4.4", "tls://1.0.0.1"],
     "nameserver-policy": {
-      "geosite:cn,amazon,oracle,apple,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker,myself,private":[
-      "221.12.1.227",
-      "221.12.33.227"
-    ]
+      "geosite:cn,amazon,oracle,apple,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker,private": [
+        "221.12.1.227",
+        "221.12.33.227"
+      ],
+      "rule-set:myself": [
+        "221.12.1.227",
+        "221.12.33.227"
+
+      ]
     }
   };
 
