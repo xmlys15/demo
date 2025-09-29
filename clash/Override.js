@@ -76,22 +76,17 @@ function main(config) {
       "+.windowsupdate.com",
       "+.msftconnecttest.com"
     ],
-    "default-nameserver": [
-      "221.12.1.227",
-      "221.12.33.227"
-    ],
     "nameserver": [
-      "https://dns.cloudflare.com/dns-query",
-      "https://dns.google/dns-query"
+      "https://1.1.1.1/dns-query",
+      "https://8.8.8.8/dns-query"
     ],
     // 分策略 DNS
     "nameserver-policy": {
-      "geosite:google": "nameserver",
-      "geosite:apple": [
-        "223.5.5.5",
-        "119.29.29.29"
-      ],
-      "geosite:cn,amazon,oracle,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker": [
+      "geosite:google":[
+      "https://1.1.1.1/dns-query",
+      "https://8.8.8.8/dns-query"
+    ],
+      "geosite:cn,amazon,oracle,apple,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker": [
         "221.12.1.227",
         "221.12.33.227"
       ],
