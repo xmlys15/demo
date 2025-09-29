@@ -77,7 +77,7 @@ function main(config) {
       "+.msftconnecttest.com"
     ],
       "proxy-server-nameserver":
-    "https://223.5.5.5/dns-query",
+    ["https://223.5.5.5/dns-query"],
     "nameserver": [
       "221.12.1.227",
       "221.12.33.227"
