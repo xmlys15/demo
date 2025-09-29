@@ -76,24 +76,17 @@ function main(config) {
       "+.windowsupdate.com",
       "+.msftconnecttest.com"
     ],
+      "proxy-server-nameserver":
+    "https://223.5.5.5/dns-query",
     "nameserver": [
-      "https://1.1.1.1/dns-query",
-      "https://8.8.8.8/dns-query"
+      "221.12.1.227",
+      "221.12.33.227"
     ],
-    // 分策略 DNS
     "nameserver-policy": {
       "geosite:google":[
       "https://1.1.1.1/dns-query",
       "https://8.8.8.8/dns-query"
-    ],
-      "geosite:cn,amazon,oracle,apple,category-games@cn,steam@cn,microsoft@cn,onedrive,category-pt,tracker": [
-        "221.12.1.227",
-        "221.12.33.227"
-      ],
-      "rule-set:myself":[
-        "221.12.1.227",
-        "221.12.33.227"
-      ],
+    ]
     }
   };
 
