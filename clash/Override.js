@@ -157,7 +157,6 @@ function main(config) {
     "GEOSITE,apple,DIRECT",
     "GEOSITE,oracle,DIRECT",
     "GEOSITE,amazon,DIRECT",
-    "GEOSITE,google,proxy",
     "GEOSITE,cn,DIRECT",
     "GEOIP,CN,DIRECT,no-resolve",
 
