@@ -148,7 +148,6 @@ function main(config) {
     "GEOSITE,private,DIRECT",
     "RULE-SET,myself,DIRECT",
     "RULE-SET,ads_domain,REJECT",
-    "GEOSITE,tracker,DIRECT",
     "GEOSITE,category-pt,DIRECT",
     "GEOSITE,onedrive,DIRECT",
     "GEOSITE,microsoft@cn,DIRECT",
