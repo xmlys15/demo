@@ -25,11 +25,8 @@
     "rules": [
       {
         "outbound": "any",
-        "server": "local"
-      },
-      {
-        "rule_set": "cn_domain",
-        "server": "local"
+        "server": "local",
+        "disable_cache": true
       },
       {
         "query_type": [
@@ -37,19 +34,46 @@
           "AAAA"
         ],
         "server": "fakeip"
+      },
+      {
+        "rule_set": [
+          "direct_domain",
+          "oracle_domain",
+          "amazon_domain",
+          "apple_domain",
+          "games_domain",
+          "cn_domain"
+        ],
+        "server": "local"
       }
     ],
     "final": "google",
-    "independent_cache": true,
-    "strategy": "prefer_ipv4"
+    "independent_cache": true
   },
   "route": {
     "rules": [
       {
-        "action": "sniff"
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic",
+          "dns",
+          "ssh"
+        ],
+        "timeout": "500ms"
       },
       {
-        "protocol": "dns",
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
         "action": "hijack-dns"
       },
       {
@@ -173,10 +197,8 @@
         "172.18.0.1/30",
         "fdfe:dcba:9876::1/126"
       ],
-      "mtu": 1500,
       "stack": "mixed",
       "auto_route": true,
-      "strict_route": true,
       "platform": {
         "http_proxy": {
           "enabled": true,
