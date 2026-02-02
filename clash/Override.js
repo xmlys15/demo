@@ -48,10 +48,10 @@ function main(config) {
   config["geo-auto-update"] = true;
   config["geo-update-interval"] = 24;
   config["geox-url"] = {
-    "geoip": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat",
-    "geosite": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-    "mmdb": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb",
-    "asn": "https://github.zjzzy.cloudns.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+    "geoip": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat",
+    "geosite": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
+    "mmdb": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb",
+    "asn": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
   };
 
   // 覆盖控制面板
@@ -59,7 +59,7 @@ function main(config) {
     config["secret"] = "",
     config["external-ui"] = "ui",
     config["external-ui-name"] = "zashboard",
-    config["external-ui-url"] = "https://github.zjzzy.cloudns.org/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
+    config["external-ui-url"] = "https://proxy.501388.xyz/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
 
   // 覆盖 dns 配置
   config["dns"] = {
@@ -130,7 +130,7 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://github.zjzzy.cloudns.org/https://raw.githubusercontent.com/xmlys15/demo/master/clash/mydirect.yaml",
+      "url": "https://proxy.501388.xyz/https://raw.githubusercontent.com/xmlys15/demo/master/clash/mydirect.yaml",
       "path": "./rules/myself.yaml"
     },
     "ads_domain": {
