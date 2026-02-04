@@ -1,15 +1,23 @@
-# 直连补充列表
 payload:
-    - +.time.windows.com
-    - +.501388.xyz
-    - +.665080.xyz
-    - +.656525.xyz
-    - +.zjzzy.cloudns.org
-    - +.zjzzy.dpdns.org
-    - +.preston.dpdns.org
-    - +.nino.nyc.mn
-    - +.nition.ggff.net
-    - +.zyz.hidns.co
-    - +.nino.qzz.io
-    - +.wzsjjt.com
-    - +.zeabur.app
+  - +.time.windows.com
+  - +.501388.xyz
+  - +.665080.xyz
+  - +.656525.xyz
+  - +.zjzzy.cloudns.org
+  - +.zjzzy.dpdns.org
+  - +.preston.dpdns.org
+  - +.nino.nyc.mn
+  - +.nition.ggff.net
+  - +.zyz.hidns.co
+  - +.nino.qzz.io
+  - +.wzsjjt.com
+  - +.zeabur.app
+  - +.antigravity.qzz.io
+  - +.nino.cc.cd
+  - +.wud.cc.cd
+  - +.wud.de5.net
+  - +.wud.us.ci
+  - +.xmlys.de
+  - +.zjzzy.qzz.io
+  - +.netcup.com
+  - +.customercontrolpanel.de
