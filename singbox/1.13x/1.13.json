@@ -48,10 +48,6 @@
                 "server": "fakeip"
             },
             {
-                "domain_suffix": "browserleaks.com",
-                "server": "fakeip"
-            },
-            {
                 "rule_set": [
                     "direct_domain",
                     "oracle_domain",
