@@ -40,12 +40,16 @@
                 "server": "local"
             },
             {
+                "query_type": "HTTPS",
+                "action": "reject"
+            },
+            {
                 "clash_mode": "Global",
                 "server": "fakeip"
             },
             {
-                "query_type": "HTTPS",
-                "action": "reject"
+                "domain_suffix": "browserleaks.com",
+                "server": "fakeip"
             },
             {
                 "rule_set": [
@@ -93,7 +97,10 @@
                 "action": "reject"
             },
             {
-                "protocol": "bittorrent",
+                "protocol": [
+                    "bittorrent",
+                    "ssh"
+                ],
                 "outbound": "direct"
             },
             {
