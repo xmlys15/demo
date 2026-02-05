@@ -116,6 +116,10 @@
                 "outbound": "GLOBAL"
             },
             {
+                "domain_suffix": "browserleaks.com",
+                "outbound": "proxy"
+            },
+            {
                 "rule_set": [
                     "direct_domain",
                     "oracle_domain",
