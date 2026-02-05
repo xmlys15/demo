@@ -1,30 +1,21 @@
 {
-  "version": 1,
+  "version": 2,
   "rules": [
     {
       "domain_suffix": [
+        "xyz",
+        "io",
+        "cd",
+        "mn",
+        "ci",
+        "zyz.hidns.co",
         "nition.ggff.net",
         "preston.dpdns.org",
-        "665080.xyz",
-        "501388.xyz",
-        "656525.xyz",
         "zjzzy.cloudns.org",
-        "nino.nyc.mn",
-        "zjzzy.dpdns.org",
-        "zyz.hidns.co",
-        "nino.qzz.io",
-        "wzsjjt.com",
-        "zeabur.app",
-        "antigravity.qzz.io",
-        "nino.cc.cd",
-        "wud.cc.cd",
-        "wud.de5.net",
-        "wud.us.ci",
-        "xmlys.de",
-        "zjzzy.qzz.io",
-        "zyz.hidns.co",
-        "netcup.com",
-        "customercontrolpanel.de"
+        "xmlys.de"
+      ],
+      "domain_regex": [
+        ".*\\.netcup\\..*"
       ]
     }
   ]
