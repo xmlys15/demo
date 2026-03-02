@@ -3,15 +3,20 @@
   "rules": [
     {
       "domain_suffix": [
-        "xyz",
-        "cd",
-        "mn",
-        "ci",
-        "zyz.hidns.co",
-        "nition.ggff.net",
-        "preston.dpdns.org",
-        "zjzzy.cloudns.org",
-        "xmlys.de"
+        "656525.xyz",
+        "501388.xyz",
+        "665080.xyz",
+        "nyc.mn",
+        "de5.net",
+        "us.ci",
+        "cc.cd",
+        "hidns.co",
+        "ggff.net",
+        "dpdns.org",
+        "qzz.io",
+        "xmlys.de",
+        "zeabur.app",
+        "wzsjjt.com"
       ],
       "domain_regex": [
         ".*\\.netcup\\..*"
