@@ -1,0 +1,257 @@
+{
+    "dns": {
+        "servers": [
+            {
+                "tag": "google",
+                "type": "https",
+                "server": "dns.google",
+                "domain_resolver": "hosts",
+                "detour": "proxy"
+            },
+            {
+                "tag": "local",
+                "type": "udp",
+                "server": "192.168.2.1"
+            },
+            {
+                "tag": "hosts",
+                "type": "hosts",
+                "predefined": {
+                    "dns.google": [
+                        "8.8.8.8",
+                        "8.8.4.4"
+                    ]
+                }
+            },
+            {
+                "tag": "fakeip",
+                "type": "fakeip",
+                "inet4_range": "198.18.0.0/15",
+                "inet6_range": "fc00::/18"
+            }
+        ],
+        "rules": [
+            {
+                "clash_mode": "Direct",
+                "server": "local"
+            },
+            {
+                "domain_suffix": "lan",
+                "server": "local"
+            },
+            {
+                "query_type": "HTTPS",
+                "action": "reject"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "fakeip"
+            },
+            {
+                "rule_set": [
+                    "direct_domain",
+                    "oracle_domain",
+                    "amazon_domain",
+                    "apple_domain",
+                    "games_domain",
+                    "cn_domain"
+                ],
+                "server": "local"
+            },
+            {
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "server": "fakeip"
+            }
+        ],
+        "final": "google",
+        "strategy": "prefer_ipv4"
+    },
+    "route": {
+        "rules": [
+            {
+                "action": "sniff"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "protocol": "dns"
+                    },
+                    {
+                        "port": 53
+                    }
+                ],
+                "action": "hijack-dns"
+            },
+            {
+                "rule_set": "ads_domain",
+                "action": "reject"
+            },
+            {
+                "protocol": [
+                    "bittorrent",
+                    "ssh"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "GLOBAL"
+            },
+            {
+                "domain_suffix": "browserleaks.com",
+                "outbound": "proxy"
+            },
+            {
+                "rule_set": [
+                    "direct_domain",
+                    "oracle_domain",
+                    "amazon_domain",
+                    "apple_domain",
+                    "games_domain",
+                    "cn_domain"
+                ],
+                "outbound": "direct"
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "direct_domain",
+                "type": "remote",
+                "format": "source",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "ads_domain",
+                "type": "remote",
+                "format": "source",
+                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "games_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "oracle_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "amazon_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "apple_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "cn_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+                "http_client": {"detour": "direct"}
+            },
+            {
+                "tag": "cn_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+                "http_client": {"detour": "direct"}
+            }
+        ],
+        "default_domain_resolver": "local",
+        "auto_detect_interface": true,
+        "final": "proxy"
+    },
+    "outbounds": [
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "proxy",
+            "type": "selector",
+            "outbounds": [
+                "direct"
+            ]
+        },
+        {
+            "tag": "GLOBAL",
+            "type": "selector",
+            "outbounds": [
+                "direct"
+            ]
+        }
+    ],
+    "inbounds": [
+        {
+            "type": "tun",
+            "address": [
+                "172.18.0.1/30",
+                "fdfe:dcba:9876::1/126"
+            ],
+            "stack": "system",
+            "mtu": 9000,
+            "auto_route": true,
+            "auto_redirect": true,
+            "strict_route": true,
+            "route_exclude_address_set": "cn_ip",
+            "platform": {
+                "http_proxy": {
+                    "enabled": true,
+                    "server": "127.0.0.1",
+                    "server_port": 7890
+                }
+            }
+        },
+        {
+            "type": "mixed",
+            "listen": "::",
+            "listen_port": 7890
+        }
+    ],
+    "experimental": {
+        "clash_api": {
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://ghfast.top/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "default_mode": "rule"
+        },
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true,
+            "store_dns": true
+        }
+    },
+    "log": {
+        "disabled": false,
+        "level": "warn",
+        "timestamp": true
+    }
+}
