@@ -1,4 +1,4 @@
-// 最后更新时间: 2025-08-11 23:00
+// 最后更新时间: 2026-08-25 15:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -48,18 +48,18 @@ function main(config) {
   config["geo-auto-update"] = true;
   config["geo-update-interval"] = 24;
   config["geox-url"] = {
-    "geoip": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat",
-    "geosite": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-    "mmdb": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb",
-    "asn": "https://proxy.501388.xyz/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+    "geoip": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat",
+    "geosite": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat",
+    "mmdb": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb",
+    "asn": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb"
   };
 
   // 覆盖控制面板
-  config["external-controller"] = "0.0.0.0:9090",
-    config["secret"] = "",
-    config["external-ui"] = "ui",
-    config["external-ui-name"] = "zashboard",
-    config["external-ui-url"] = "https://proxy.501388.xyz/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip"
+  config["external-controller"] = "0.0.0.0:9090";
+  config["secret"] = "";
+  config["external-ui"] = "ui";
+  config["external-ui-name"] = "zashboard";
+  config["external-ui-url"] = "https://ghfast.top/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip";
 
   // 覆盖 dns 配置
   config["dns"] = {
@@ -76,7 +76,7 @@ function main(config) {
       "+.windowsupdate.com",
       "+.msftconnecttest.com"
     ],
-    "default-nameserver":["223.5.5.5"],
+    "default-nameserver": ["223.5.5.5"],
     "proxy-server-nameserver": ["https://223.5.5.5/dns-query"],
     "nameserver": ["221.12.1.227", "221.12.33.227"],
   };
@@ -130,14 +130,14 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://proxy.501388.xyz/https://raw.githubusercontent.com/xmlys15/demo/master/clash/mydirect.yaml",
+      "url": "https://testingcf.jsdelivr.net/gh/xmlys15/demo@master/clash/mydirect.yaml",
       "path": "./rules/myself.yaml"
     },
     "ads_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
+      "url": "https://testingcf.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
       "path": "./rules/ads_domain.yaml"
     }
   };

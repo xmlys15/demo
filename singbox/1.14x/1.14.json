@@ -131,7 +131,7 @@
                 "tag": "direct_domain",
                 "type": "remote",
                 "format": "source",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/xmlys15/demo/master/singbox/direct.json",
+                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json",
                 "http_client": {
                     "detour": "direct"
                 }
