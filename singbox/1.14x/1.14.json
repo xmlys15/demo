@@ -1,4 +1,9 @@
 {
+    "$schema": "https://sing-box.sagernet.org/schema.json",
+    "log": {
+        "level": "warn",
+        "timestamp": true
+    },
     "dns": {
         "servers": [
             {
@@ -36,16 +41,16 @@
                 "server": "local"
             },
             {
+                "clash_mode": "Global",
+                "server": "fakeip"
+            },
+            {
                 "domain_suffix": "lan",
                 "server": "local"
             },
             {
                 "query_type": "HTTPS",
                 "action": "reject"
-            },
-            {
-                "clash_mode": "Global",
-                "server": "fakeip"
             },
             {
                 "rule_set": [
@@ -69,156 +74,13 @@
         "final": "google",
         "strategy": "prefer_ipv4"
     },
-    "route": {
-        "rules": [
-            {
-                "action": "sniff"
-            },
-            {
-                "type": "logical",
-                "mode": "or",
-                "rules": [
-                    {
-                        "protocol": "dns"
-                    },
-                    {
-                        "port": 53
-                    }
-                ],
-                "action": "hijack-dns"
-            },
-            {
-                "rule_set": "ads_domain",
-                "action": "reject"
-            },
-            {
-                "protocol": [
-                    "bittorrent",
-                    "ssh"
-                ],
-                "outbound": "direct"
-            },
-            {
-                "ip_is_private": true,
-                "outbound": "direct"
-            },
-            {
-                "clash_mode": "Direct",
-                "outbound": "direct"
-            },
-            {
-                "clash_mode": "Global",
-                "outbound": "GLOBAL"
-            },
-            {
-                "domain_suffix": "browserleaks.com",
-                "outbound": "proxy"
-            },
-            {
-                "rule_set": [
-                    "direct_domain",
-                    "oracle_domain",
-                    "amazon_domain",
-                    "apple_domain",
-                    "games_domain",
-                    "cn_domain"
-                ],
-                "outbound": "direct"
-            }
-        ],
-        "rule_set": [
-            {
-                "tag": "direct_domain",
-                "type": "remote",
-                "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "ads_domain",
-                "type": "remote",
-                "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "games_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "oracle_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "amazon_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "apple_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "cn_ip",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            },
-            {
-                "tag": "cn_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
-                "http_client": {
-                    "detour": "direct"
-                }
-            }
-        ],
-        "default_domain_resolver": "local",
-        "auto_detect_interface": true,
-        "final": "proxy"
-    },
     "outbounds": [
         {
             "tag": "direct",
-            "type": "direct",
-            "connect_timeout": "5s"
+            "type": "direct"
         },
         {
             "tag": "proxy",
-            "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
-        },
-        {
-            "tag": "GLOBAL",
             "type": "selector",
             "outbounds": [
                 "direct"
@@ -252,6 +114,147 @@
             "listen_port": 7890
         }
     ],
+    "route": {
+        "rules": [
+            {
+                "action": "sniff"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "protocol": "dns"
+                    },
+                    {
+                        "port": 53
+                    }
+                ],
+                "action": "hijack-dns"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "port": 443
+                    },
+                    {
+                        "network": "udp"
+                    }
+                ],
+                "action": "reject"
+            },
+            {
+                "protocol": "quic",
+                "action": "reject"
+            },
+            {
+                "port": [
+                    3478,
+                    5201
+                ],
+                "outbound": "direct"
+            },
+            {
+                "rule_set": "ads_domain",
+                "action": "reject"
+            },
+            {
+                "protocol": [
+                    "bittorrent",
+                    "ssh"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "proxy"
+            },
+            {
+                "domain_suffix": "browserleaks.com",
+                "outbound": "proxy"
+            },
+            {
+                "rule_set": [
+                    "direct_domain",
+                    "oracle_domain",
+                    "amazon_domain",
+                    "apple_domain",
+                    "games_domain",
+                    "cn_domain"
+                ],
+                "outbound": "direct"
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "direct_domain",
+                "type": "remote",
+                "format": "source",
+                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json"
+            },
+            {
+                "tag": "ads_domain",
+                "type": "remote",
+                "format": "source",
+                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json"
+            },
+            {
+                "tag": "games_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs"
+            },
+            {
+                "tag": "oracle_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs"
+            },
+            {
+                "tag": "amazon_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs"
+            },
+            {
+                "tag": "apple_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs"
+            },
+            {
+                "tag": "cn_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs"
+            },
+            {
+                "tag": "cn_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs"
+            }
+        ],
+        "default_domain_resolver": "local",
+        "default_http_client": "direct_client",
+        "auto_detect_interface": true,
+        "final": "proxy"
+    },
+    "http_clients": [
+        {
+            "tag": "direct_client"
+        }
+    ],
     "experimental": {
         "clash_api": {
             "external_controller": "0.0.0.0:9090",
@@ -265,10 +268,5 @@
             "store_fakeip": true,
             "store_dns": true
         }
-    },
-    "log": {
-        "disabled": false,
-        "level": "warn",
-        "timestamp": true
     }
 }

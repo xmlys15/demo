@@ -48,10 +48,10 @@ function main(config) {
   config["geo-auto-update"] = true;
   config["geo-update-interval"] = 24;
   config["geox-url"] = {
-    "geoip": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat",
-    "geosite": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat",
-    "mmdb": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb",
-    "asn": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb"
+    "geoip": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat",
+    "geosite": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat",
+    "mmdb": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb",
+    "asn": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb"
   };
 
   // 覆盖控制面板
@@ -130,14 +130,14 @@ function main(config) {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://testingcf.jsdelivr.net/gh/xmlys15/demo@master/clash/mydirect.yaml",
+      "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/clash/mydirect.yaml",
       "path": "./rules/myself.yaml"
     },
     "ads_domain": {
       ...ruleProviderCommon,
       "behavior": "domain",
       "format": "yaml",
-      "url": "https://testingcf.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
+      "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
       "path": "./rules/ads_domain.yaml"
     }
   };

@@ -1,4 +1,9 @@
 {
+    "$schema": "https://sing-box.sagernet.org/schema.json",
+    "log": {
+        "level": "warn",
+        "timestamp": true
+    },
     "dns": {
         "servers": [
             {
@@ -10,8 +15,7 @@
             },
             {
                 "tag": "local",
-                "type": "udp",
-                "server": "192.168.2.1"
+                "type": "local"
             },
             {
                 "tag": "hosts",
@@ -36,16 +40,16 @@
                 "server": "local"
             },
             {
+                "clash_mode": "Global",
+                "server": "fakeip"
+            },
+            {
                 "domain_suffix": "lan",
                 "server": "local"
             },
             {
                 "query_type": "HTTPS",
                 "action": "reject"
-            },
-            {
-                "clash_mode": "Global",
-                "server": "fakeip"
             },
             {
                 "rule_set": [
@@ -67,9 +71,45 @@
             }
         ],
         "final": "google",
-        "independent_cache": true,
         "strategy": "prefer_ipv4"
     },
+    "outbounds": [
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "proxy",
+            "type": "selector",
+            "outbounds": [
+                "direct"
+            ]
+        }
+    ],
+    "inbounds": [
+        {
+            "type": "tun",
+            "address": [
+                "172.18.0.1/30",
+                "fdfe:dcba:9876::1/126"
+            ],
+            "stack": "system",
+            "mtu": 9000,
+            "auto_route": true,
+            "platform": {
+                "http_proxy": {
+                    "enabled": true,
+                    "server": "127.0.0.1",
+                    "server_port": 7890
+                }
+            }
+        },
+        {
+            "type": "mixed",
+            "listen": "127.0.0.1",
+            "listen_port": 7890
+        }
+    ],
     "route": {
         "rules": [
             {
@@ -93,10 +133,7 @@
                 "action": "reject"
             },
             {
-                "protocol": [
-                    "bittorrent",
-                    "ssh"
-                ],
+                "protocol": "ssh",
                 "outbound": "direct"
             },
             {
@@ -109,7 +146,7 @@
             },
             {
                 "clash_mode": "Global",
-                "outbound": "GLOBAL"
+                "outbound": "proxy"
             },
             {
                 "domain_suffix": "browserleaks.com",
@@ -125,6 +162,13 @@
                     "cn_domain"
                 ],
                 "outbound": "direct"
+            },
+            {
+                "action": "resolve"
+            },
+            {
+                "rule_set": "cn_ip",
+                "outbound": "direct"
             }
         ],
         "rule_set": [
@@ -132,127 +176,66 @@
                 "tag": "direct_domain",
                 "type": "remote",
                 "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json"
             },
             {
                 "tag": "ads_domain",
                 "type": "remote",
                 "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json"
             },
             {
                 "tag": "games_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs"
             },
             {
                 "tag": "oracle_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs"
             },
             {
                 "tag": "amazon_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs"
             },
             {
                 "tag": "apple_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs"
             },
             {
                 "tag": "cn_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs"
             },
             {
                 "tag": "cn_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
-                "download_detour": "direct"
+                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs"
             }
         ],
         "default_domain_resolver": "local",
+        "default_http_client": "direct_client",
         "auto_detect_interface": true,
         "final": "proxy"
     },
-    "outbounds": [
+    "http_clients": [
         {
-            "tag": "direct",
-            "type": "direct"
-        },
-        {
-            "tag": "proxy",
-            "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
-        },
-        {
-            "tag": "GLOBAL",
-            "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
-        }
-    ],
-    "inbounds": [
-        {
-            "type": "tun",
-            "address": [
-                "172.18.0.1/30",
-                "fdfe:dcba:9876::1/126"
-            ],
-            "stack": "system",
-            "mtu": 9000,
-            "auto_route": true,
-            "auto_redirect": true,
-            "strict_route": true,
-            "route_exclude_address_set": "cn_ip",
-            "platform": {
-                "http_proxy": {
-                    "enabled": true,
-                    "server": "127.0.0.1",
-                    "server_port": 7890
-                }
-            }
-        },
-        {
-            "type": "mixed",
-            "listen": "::",
-            "listen_port": 7890
+            "tag": "direct_client"
         }
     ],
     "experimental": {
-        "clash_api": {
-            "external_controller": "0.0.0.0:9090",
-            "external_ui": "ui",
-            "external_ui_download_url": "https://ghfast.top/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
-            "external_ui_download_detour": "direct",
-            "default_mode": "rule"
-        },
         "cache_file": {
             "enabled": true,
             "store_fakeip": true,
-            "store_rdrc": true
+            "store_dns": true
         }
-    },
-    "log": {
-        "disabled": false,
-        "level": "warn",
-        "timestamp": true
     }
 }
