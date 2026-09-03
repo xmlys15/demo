@@ -144,6 +144,17 @@
                 "outbound": "direct"
             },
             {
+                "network": "icmp",
+                "outbound": "direct"
+            },
+            {
+                "domain_suffix": [
+                    "github.com"
+                ],
+                "port": 22,
+                "outbound": "proxy"
+            },
+            {
                 "protocol": "ssh",
                 "outbound": "direct"
             },
@@ -201,19 +212,24 @@
         "auto_detect_interface": true,
         "final": "proxy"
     },
+    "services": [
+        {
+            "type": "api",
+            "listen": "::",
+            "listen_port": 9090,
+            "secret": "",
+            "dashboard": {
+                "enabled": true,
+                "download_url": "https://ghfast.top/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip"
+            }
+        }
+    ],
     "http_clients": [
         {
             "tag": "direct_client"
         }
     ],
     "experimental": {
-        "clash_api": {
-            "external_controller": "0.0.0.0:9090",
-            "external_ui": "ui",
-            "external_ui_download_url": "https://ghfast.top/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
-            "external_ui_download_detour": "direct",
-            "default_mode": "rule"
-        },
         "cache_file": {
             "enabled": true,
             "store_fakeip": true,
