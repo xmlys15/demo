@@ -37,16 +37,16 @@
         ],
         "rules": [
             {
+                "domain_suffix": "lan",
+                "server": "local"
+            },
+            {
                 "clash_mode": "Direct",
                 "server": "local"
             },
             {
                 "clash_mode": "Global",
                 "server": "fakeip"
-            },
-            {
-                "domain_suffix": "lan",
-                "server": "local"
             },
             {
                 "query_type": "HTTPS",
@@ -58,7 +58,6 @@
                     "oracle_domain",
                     "amazon_domain",
                     "apple_domain",
-                    "games_domain",
                     "cn_domain"
                 ],
                 "server": "local"
@@ -99,14 +98,7 @@
             "auto_route": true,
             "auto_redirect": true,
             "strict_route": true,
-            "route_exclude_address_set": "cn_ip",
-            "platform": {
-                "http_proxy": {
-                    "enabled": true,
-                    "server": "127.0.0.1",
-                    "server_port": 7890
-                }
-            }
+            "route_exclude_address_set": "cn_ip"
         },
         {
             "type": "mixed",
@@ -133,41 +125,6 @@
                 "action": "hijack-dns"
             },
             {
-                "type": "logical",
-                "mode": "and",
-                "rules": [
-                    {
-                        "port": 443
-                    },
-                    {
-                        "network": "udp"
-                    }
-                ],
-                "action": "reject"
-            },
-            {
-                "protocol": "quic",
-                "action": "reject"
-            },
-            {
-                "port": [
-                    3478,
-                    5201
-                ],
-                "outbound": "direct"
-            },
-            {
-                "rule_set": "ads_domain",
-                "action": "reject"
-            },
-            {
-                "protocol": [
-                    "bittorrent",
-                    "ssh"
-                ],
-                "outbound": "direct"
-            },
-            {
                 "ip_is_private": true,
                 "outbound": "direct"
             },
@@ -180,8 +137,15 @@
                 "outbound": "proxy"
             },
             {
-                "domain_suffix": "browserleaks.com",
-                "outbound": "proxy"
+                "port": [
+                    3478,
+                    5201
+                ],
+                "outbound": "direct"
+            },
+            {
+                "protocol": "ssh",
+                "outbound": "direct"
             },
             {
                 "rule_set": [
@@ -189,7 +153,6 @@
                     "oracle_domain",
                     "amazon_domain",
                     "apple_domain",
-                    "games_domain",
                     "cn_domain"
                 ],
                 "outbound": "direct"
@@ -201,18 +164,6 @@
                 "type": "remote",
                 "format": "source",
                 "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json"
-            },
-            {
-                "tag": "ads_domain",
-                "type": "remote",
-                "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Singbox.json"
-            },
-            {
-                "tag": "games_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs"
             },
             {
                 "tag": "oracle_domain",

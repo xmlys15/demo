@@ -50,13 +50,6 @@ try {
       delete group.filter;
       return;
     }
-
-    if (group.tag === 'GLOBAL') {
-      log(`正在填充策略组 [${group.tag}]...`);
-      group.outbounds = [...new Set(["proxy","direct", ...allProxyTags])];
-      delete group.filter;
-      return;
-    }
   });
 
   // 空 selector 兜底
