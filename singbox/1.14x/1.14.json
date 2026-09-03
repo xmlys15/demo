@@ -7,16 +7,16 @@
     "dns": {
         "servers": [
             {
+                "tag": "local",
+                "type": "udp",
+                "server": "192.168.2.1"
+            },
+            {
                 "tag": "google",
                 "type": "https",
                 "server": "dns.google",
                 "domain_resolver": "hosts",
                 "detour": "proxy"
-            },
-            {
-                "tag": "local",
-                "type": "udp",
-                "server": "192.168.2.1"
             },
             {
                 "tag": "hosts",

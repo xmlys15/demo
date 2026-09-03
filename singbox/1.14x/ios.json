@@ -7,15 +7,15 @@
     "dns": {
         "servers": [
             {
+                "tag": "local",
+                "type": "local"
+            },
+            {
                 "tag": "google",
                 "type": "https",
                 "server": "dns.google",
                 "domain_resolver": "hosts",
                 "detour": "proxy"
-            },
-            {
-                "tag": "local",
-                "type": "local"
             },
             {
                 "tag": "hosts",
