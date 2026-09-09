@@ -36,18 +36,6 @@
         ],
         "rules": [
             {
-                "domain_suffix": "lan",
-                "server": "local"
-            },
-            {
-                "clash_mode": "Direct",
-                "server": "local"
-            },
-            {
-                "clash_mode": "Global",
-                "server": "fakeip"
-            },
-            {
                 "query_type": "HTTPS",
                 "action": "reject"
             },
@@ -70,7 +58,7 @@
             }
         ],
         "final": "google",
-        "strategy": "prefer_ipv4"
+        "optimistic": true
     },
     "outbounds": [
         {
@@ -94,38 +82,14 @@
             ],
             "stack": "system",
             "auto_route": true,
-            "route_exclude_address_set": "cn_ip"
+            "route_exclude_address_set": "cn_ip",
+            "dns_mode": "hijack"
         }
     ],
     "route": {
         "rules": [
             {
                 "action": "sniff"
-            },
-            {
-                "type": "logical",
-                "mode": "or",
-                "rules": [
-                    {
-                        "protocol": "dns"
-                    },
-                    {
-                        "port": 53
-                    }
-                ],
-                "action": "hijack-dns"
-            },
-            {
-                "ip_is_private": true,
-                "outbound": "direct"
-            },
-            {
-                "clash_mode": "Direct",
-                "outbound": "direct"
-            },
-            {
-                "clash_mode": "Global",
-                "outbound": "proxy"
             },
             {
                 "protocol": "ssh",
