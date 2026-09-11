@@ -41,11 +41,11 @@
             },
             {
                 "rule_set": [
-                    "direct_domain",
-                    "oracle_domain",
-                    "amazon_domain",
-                    "apple_domain",
-                    "cn_domain"
+                    "geosite-direct",
+                    "geosite-oracle",
+                    "geosite-amazon@cn",
+                    "geosite-apple@cn",
+                    "geosite-cn"
                 ],
                 "server": "local"
             },
@@ -82,7 +82,7 @@
             ],
             "stack": "system",
             "auto_route": true,
-            "route_exclude_address_set": "cn_ip",
+            "route_exclude_address_set": "geoip-cn",
             "dns_mode": "hijack"
         }
     ],
@@ -97,51 +97,53 @@
             },
             {
                 "rule_set": [
-                    "direct_domain",
-                    "oracle_domain",
-                    "amazon_domain",
-                    "apple_domain",
-                    "cn_domain"
+                    "geosite-direct",
+                    "geosite-oracle",
+                    "geosite-amazon@cn",
+                    "geosite-apple@cn",
+                    "geosite-cn"
                 ],
                 "outbound": "direct"
             }
         ],
         "rule_set": [
             {
-                "tag": "direct_domain",
-                "type": "remote",
-                "format": "source",
-                "url": "https://gcore.jsdelivr.net/gh/xmlys15/demo@master/singbox/direct.json"
+                "tag": "geosite-direct",
+                "type": "inline",
+                "rules": [
+                    {
+                        "domain_suffix": [
+                            "656525.xyz",
+                            "501388.xyz",
+                            "665080.xyz",
+                            "xmlys.de",
+                            "edu101.com",
+                            "nino.nyc.mn",
+                            "wud.de5.net",
+                            "zyz.hidns.co"
+                        ],
+                        "domain_keyword": [
+                            "netcup"
+                        ]
+                    }
+                ]
             },
             {
-                "tag": "oracle_domain",
+                "tag": [
+                    "geosite-cn",
+                    "geosite-apple@cn",
+                    "geosite-oracle",
+                    "geosite-amazon@cn"
+                ],
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/oracle.srs"
+                "url": "https://cdn.jsdelivr.net/gh/SagerNet/sing-geosite@rule-set/{tag}.srs"
             },
             {
-                "tag": "amazon_domain",
+                "tag": "geoip-cn",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs"
-            },
-            {
-                "tag": "apple_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs"
-            },
-            {
-                "tag": "cn_ip",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs"
-            },
-            {
-                "tag": "cn_domain",
-                "type": "remote",
-                "format": "binary",
-                "url": "https://gcore.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs"
+                "url": "https://cdn.jsdelivr.net/gh/SagerNet/sing-geoip@rule-set/{tag}.srs"
             }
         ],
         "default_domain_resolver": "local",
