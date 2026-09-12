@@ -199,13 +199,18 @@
             "secret": "",
             "dashboard": {
                 "enabled": true,
-                "download_url": "https://ghfast.top/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip"
+                "download_url": "https://ghfast.top/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip",
+                "http_client": "proxy_client"
             }
         }
     ],
     "http_clients": [
         {
             "tag": "direct_client"
+        },
+        {
+            "tag": "proxy_client",
+            "detour": "proxy"
         }
     ],
     "experimental": {
