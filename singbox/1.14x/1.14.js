@@ -1,7 +1,7 @@
 /**
  * @name Sing-Box 模板动态注入脚本
  * @description
- *   - 动态获取订阅节点，并将其注入到模板的指定策略组中（如 'proxy', 'GLOBAL'）。
+ *   - 动态获取订阅节点，并将其注入到模板的指定策略组中（'proxy'）。
  *   - 自动移除策略组中原有的 'filter' 筛选规则。
  *   - 确保所有策略组在节点为空时至少有一个备用出站，防止客户端出错。
  * @author (xmlys15)
@@ -40,13 +40,13 @@ try {
 
   config.outbounds = config.outbounds || [];
 
-  // 只改 proxy / GLOBAL 两个组
+  // 只改 proxy 策略组
   config.outbounds.forEach(group => {
     if (!group || !['selector', 'url-test'].includes(group.type)) return;
 
     if (group.tag === 'proxy') {
       log(`正在填充策略组 [${group.tag}]...`);
-      group.outbounds = [...new Set(["direct", ...allProxyTags])];
+      group.outbounds = [...new Set(allProxyTags)];
       delete group.filter;
       return;
     }
