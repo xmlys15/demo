@@ -37,10 +37,6 @@
         ],
         "rules": [
             {
-                "domain_suffix": "lan",
-                "server": "local"
-            },
-            {
                 "clash_mode": "Direct",
                 "server": "local"
             },
@@ -49,8 +45,20 @@
                 "server": "fakeip"
             },
             {
-                "query_type": "HTTPS",
-                "action": "reject"
+                "query_type": [
+                    "HTTPS",
+                    "SVCB"
+                ],
+                "action": "predefined",
+                "rcode": "NOERROR"
+            },
+            {
+                "domain_suffix": [
+                    "lan",
+                    "local",
+                    "arpa"
+                ],
+                "server": "local"
             },
             {
                 "rule_set": [
@@ -81,9 +89,7 @@
         {
             "tag": "proxy",
             "type": "selector",
-            "outbounds": [
-                "direct"
-            ]
+            "outbounds": []
         }
     ],
     "inbounds": [
@@ -93,7 +99,6 @@
                 "172.18.0.1/30",
                 "fdfe:dcba:9876::1/126"
             ],
-            "stack": "system",
             "mtu": 9000,
             "auto_route": true,
             "auto_redirect": true,
@@ -110,11 +115,11 @@
     "route": {
         "rules": [
             {
-                "action": "sniff"
+                "ip_is_private": true,
+                "action": "bypass"
             },
             {
-                "ip_is_private": true,
-                "outbound": "direct"
+                "action": "sniff"
             },
             {
                 "clash_mode": "Direct",
@@ -125,14 +130,10 @@
                 "outbound": "proxy"
             },
             {
-                "port": [
-                    3478,
-                    5201
+                "protocol": [
+                    "ssh",
+                    "bittorrent"
                 ],
-                "outbound": "direct"
-            },
-            {
-                "protocol": "ssh",
                 "outbound": "direct"
             },
             {
@@ -195,25 +196,27 @@
         {
             "type": "api",
             "listen": "::",
-            "listen_port": 9090,
+            "listen_port": 9999,
             "secret": "",
             "dashboard": {
                 "enabled": true,
-                "download_url": "https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip",
-                "http_client": "proxy_client"
+                "download_url": "https://proxy.501388.xyz/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip"
             }
         }
     ],
     "http_clients": [
         {
             "tag": "direct_client"
-        },
-        {
-            "tag": "proxy_client",
-            "detour": "proxy"
         }
     ],
     "experimental": {
+        "clash_api": {
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://proxy.501388.xyz/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "default_mode": "rule"
+        },
         "cache_file": {
             "enabled": true,
             "store_fakeip": true,
