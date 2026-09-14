@@ -103,6 +103,7 @@
             "auto_route": true,
             "auto_redirect": true,
             "strict_route": true,
+            "exclude_mptcp": true,
             "route_exclude_address_set": "geoip-cn",
             "dns_mode": "hijack"
         },
@@ -115,19 +116,19 @@
     "route": {
         "rules": [
             {
-                "ip_is_private": true,
-                "action": "bypass"
-            },
-            {
-                "action": "sniff"
-            },
-            {
                 "clash_mode": "Direct",
                 "outbound": "direct"
             },
             {
                 "clash_mode": "Global",
                 "outbound": "proxy"
+            },
+            {
+                "ip_is_private": true,
+                "action": "bypass"
+            },
+            {
+                "action": "sniff"
             },
             {
                 "protocol": [
