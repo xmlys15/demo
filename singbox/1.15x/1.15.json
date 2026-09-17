@@ -66,6 +66,7 @@
                     "oracle",
                     "amazon@cn",
                     "apple-update",
+                    "apple-cn",
                     "cn"
                 ],
                 "server": "local"
@@ -96,7 +97,7 @@
         {
             "type": "tun",
             "address": [
-                "172.18.0.1/30",
+                "172.31.255.1/30",
                 "fdfe:dcba:9876::1/126"
             ],
             "mtu": 9000,
@@ -143,6 +144,7 @@
                     "oracle",
                     "amazon@cn",
                     "apple-update",
+                    "apple-cn",
                     "cn"
                 ],
                 "outbound": "direct"
@@ -175,7 +177,8 @@
                     "cn",
                     "oracle",
                     "amazon@cn",
-                    "apple-update"
+                    "apple-update",
+                    "apple-cn"
                 ],
                 "type": "remote",
                 "format": "binary",
