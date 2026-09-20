@@ -67,7 +67,8 @@
                     "amazon@cn",
                     "apple-update",
                     "apple-cn",
-                    "cn"
+                    "cn",
+                    "douyin"
                 ],
                 "server": "local"
             },
@@ -145,7 +146,8 @@
                     "amazon@cn",
                     "apple-update",
                     "apple-cn",
-                    "cn"
+                    "cn",
+                    "douyin"
                 ],
                 "outbound": "direct"
             }
@@ -178,7 +180,8 @@
                     "oracle",
                     "amazon@cn",
                     "apple-update",
-                    "apple-cn"
+                    "apple-cn",
+                    "douyin"
                 ],
                 "type": "remote",
                 "format": "binary",
