@@ -1,9 +1,5 @@
 {
     "$schema": "https://sing-box.sagernet.org/schema.json",
-    "log": {
-        "level": "warn",
-        "timestamp": true
-    },
     "dns": {
         "servers": [
             {
@@ -37,20 +33,20 @@
         ],
         "rules": [
             {
-                "clash_mode": "Direct",
-                "server": "local"
-            },
-            {
-                "clash_mode": "Global",
-                "server": "fakeip"
-            },
-            {
                 "query_type": [
                     "HTTPS",
                     "SVCB"
                 ],
                 "action": "predefined",
                 "rcode": "NOERROR"
+            },
+            {
+                "clash_mode": "Direct",
+                "server": "local"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "fakeip"
             },
             {
                 "domain_suffix": [
@@ -63,13 +59,47 @@
             {
                 "rule_set": [
                     "geosite-direct",
-                    "oracle",
-                    "amazon@cn",
-                    "apple-update",
-                    "apple-cn",
-                    "cn",
-                    "douyin"
+                    "geosite-douyin",
+                    "geosite-oracle",
+                    "geosite-amazon@cn",
+                    "geosite-apple@cn",
+                    "geosite-apple-update",
+                    "geosite-cn"
                 ],
+                "server": "local"
+            },
+            {
+                "rule_set": [
+                    "geosite-category-ai-!cn",
+                    "geosite-google",
+                    "geosite-github",
+                    "geosite-geolocation-!cn"
+                ],
+                "server": "fakeip"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "query_type": [
+                            "A",
+                            "AAAA"
+                        ]
+                    },
+                    {
+                        "rule_set": "geosite-geolocation-!cn",
+                        "invert": true
+                    }
+                ],
+                "action": "evaluate",
+                "server": "google",
+                "client_subnet": "223.5.5.0/24",
+                "timeout": "2s"
+            },
+            {
+                "match_response": true,
+                "rule_set": "geoip-cn",
                 "server": "local"
             },
             {
@@ -81,6 +111,7 @@
             }
         ],
         "final": "google",
+        "reverse_mapping": true,
         "optimistic": true
     },
     "outbounds": [
@@ -119,10 +150,10 @@
                 "2607:f130:0:167::9211:6d57/128",
                 "2604:2dc0:202:300::7f9/128"
             ],
-            "route_exclude_address_set": "geoip-cn",
             "dns_mode": "hijack"
         },
         {
+            "tag": "mixed",
             "type": "mixed",
             "listen": "::",
             "listen_port": 7890
@@ -130,6 +161,88 @@
     ],
     "route": {
         "rules": [
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "port": [
+                            53,
+                            853
+                        ],
+                        "invert": true
+                    },
+                    {
+                        "clash_mode": "Global",
+                        "invert": true
+                    },
+                    {
+                        "type": "logical",
+                        "mode": "or",
+                        "rules": [
+                            {
+                                "ip_is_private": true
+                            },
+                            {
+                                "rule_set": "geoip-cn"
+                            }
+                        ]
+                    }
+                ],
+                "action": "bypass"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "domain_suffix": "push.apple.com"
+                    },
+                    {
+                        "rule_set": "geoip-telegram"
+                    }
+                ],
+                "invert": true,
+                "action": "sniff"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "port": 53
+                    },
+                    {
+                        "protocol": "dns"
+                    }
+                ],
+                "action": "hijack-dns"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "port": 853
+                    },
+                    {
+                        "protocol": [
+                            "stun",
+                            "quic"
+                        ]
+                    }
+                ],
+                "action": "reject",
+                "no_drop": true
+            },
+            {
+                "network": "icmp",
+                "action": "resolve"
+            },
+            {
+                "network": "icmp",
+                "outbound": "direct"
+            },
             {
                 "clash_mode": "Direct",
                 "outbound": "direct"
@@ -140,27 +253,52 @@
             },
             {
                 "ip_is_private": true,
-                "action": "bypass"
-            },
-            {
-                "action": "sniff"
+                "outbound": "direct"
             },
             {
                 "protocol": [
-                    "ssh",
                     "bittorrent"
                 ],
                 "outbound": "direct"
             },
             {
                 "rule_set": [
-                    "geosite-direct",
-                    "oracle",
-                    "amazon@cn",
-                    "apple-update",
-                    "apple-cn",
-                    "cn",
-                    "douyin"
+                    "geosite-direct"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "rule_set": [
+                    "geosite-category-ai-!cn",
+                    "geosite-google",
+                    "geosite-github"
+                ],
+                "outbound": "proxy"
+            },
+            {
+                "rule_set": [
+                    "geosite-douyin",
+                    "geosite-oracle",
+                    "geosite-amazon@cn",
+                    "geosite-apple@cn",
+                    "geosite-apple-update",
+                    "geosite-cn"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "inbound": "mixed",
+                "action": "resolve"
+            },
+            {
+                "rule_set": [
+                    "geoip-telegram"
+                ],
+                "outbound": "proxy"
+            },
+            {
+                "rule_set": [
+                    "geoip-cn"
                 ],
                 "outbound": "direct"
             }
@@ -179,32 +317,46 @@
                             "edu101.com",
                             "nino.nyc.mn",
                             "wud.de5.net",
-                            "zyz.hidns.co"
+                            "zyz.hidns.co",
+                            "pool.ntp.org",
+                            "time.apple.com",
+                            "time.windows.com"
                         ],
                         "domain_keyword": [
-                            "netcup"
+                            "netcup",
+                            "ntp"
                         ]
                     }
                 ]
             },
             {
                 "tag": [
-                    "cn",
-                    "oracle",
-                    "amazon@cn",
-                    "apple-update",
-                    "apple-cn",
-                    "douyin"
+                    "geosite-category-ai-!cn",
+                    "geosite-google",
+                    "geosite-github",
+                    "geosite-geolocation-!cn",
+                    "geosite-cn",
+                    "geosite-douyin",
+                    "geosite-oracle",
+                    "geosite-amazon@cn",
+                    "geosite-apple@cn",
+                    "geosite-apple-update"
                 ],
                 "type": "remote",
                 "format": "binary",
-                "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/{tag}.srs"
+                "url": "https://cdn.jsdelivr.net/gh/SagerNet/sing-geosite@rule-set/{tag}.srs"
+            },
+            {
+                "tag": "geoip-telegram",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/telegram.srs"
             },
             {
                 "tag": "geoip-cn",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs"
+                "url": "https://cdn.jsdelivr.net/gh/SagerNet/sing-geoip@rule-set/{tag}.srs"
             }
         ],
         "default_domain_resolver": "local",
@@ -216,7 +368,7 @@
         {
             "type": "api",
             "listen": "::",
-            "listen_port": 9999,
+            "listen_port": 9090,
             "secret": "",
             "dashboard": {
                 "enabled": true,
@@ -224,23 +376,27 @@
             }
         }
     ],
-    "http_clients": [
-        {
-            "tag": "direct_client"
-        }
-    ],
     "experimental": {
-        "clash_api": {
-            "external_controller": "0.0.0.0:9090",
-            "external_ui": "ui",
-            "external_ui_download_url": "https://proxy.501388.xyz/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
-            "external_ui_download_detour": "direct",
-            "default_mode": "rule"
-        },
         "cache_file": {
             "enabled": true,
             "store_fakeip": true,
             "store_dns": true
         }
+    },
+    "certificate": {
+        "store": "chrome"
+    },
+    "ntp": {
+        "enabled": true,
+        "server": "time.apple.com"
+    },
+    "http_clients": [
+        {
+            "tag": "direct_client"
+        }
+    ],
+    "log": {
+        "level": "warn",
+        "timestamp": true
     }
 }

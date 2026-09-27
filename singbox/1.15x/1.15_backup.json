@@ -1,0 +1,246 @@
+{
+    "$schema": "https://sing-box.sagernet.org/schema.json",
+    "log": {
+        "level": "warn",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "local",
+                "type": "udp",
+                "server": "192.168.2.1"
+            },
+            {
+                "tag": "google",
+                "type": "https",
+                "server": "dns.google",
+                "domain_resolver": "hosts",
+                "detour": "proxy"
+            },
+            {
+                "tag": "hosts",
+                "type": "hosts",
+                "predefined": {
+                    "dns.google": [
+                        "8.8.8.8",
+                        "8.8.4.4"
+                    ]
+                }
+            },
+            {
+                "tag": "fakeip",
+                "type": "fakeip",
+                "inet4_range": "198.18.0.0/15",
+                "inet6_range": "fc00::/18"
+            }
+        ],
+        "rules": [
+            {
+                "clash_mode": "Direct",
+                "server": "local"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "fakeip"
+            },
+            {
+                "query_type": [
+                    "HTTPS",
+                    "SVCB"
+                ],
+                "action": "predefined",
+                "rcode": "NOERROR"
+            },
+            {
+                "domain_suffix": [
+                    "lan",
+                    "local",
+                    "arpa"
+                ],
+                "server": "local"
+            },
+            {
+                "rule_set": [
+                    "geosite-direct",
+                    "oracle",
+                    "amazon@cn",
+                    "apple-update",
+                    "apple-cn",
+                    "cn",
+                    "douyin"
+                ],
+                "server": "local"
+            },
+            {
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "server": "fakeip"
+            }
+        ],
+        "final": "google",
+        "optimistic": true
+    },
+    "outbounds": [
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "proxy",
+            "type": "selector",
+            "outbounds": []
+        }
+    ],
+    "inbounds": [
+        {
+            "type": "tun",
+            "address": [
+                "172.31.255.1/30",
+                "fdfe:dcba:9876::1/126"
+            ],
+            "mtu": 9000,
+            "auto_route": true,
+            "auto_redirect": true,
+            "strict_route": true,
+            "exclude_mptcp": true,
+            "route_exclude_address": [
+                "69.63.206.12/32",
+                "179.253.246.97/32",
+                "168.138.188.147/32",
+                "161.118.206.153/32",
+                "113.20.13.224/32",
+                "51.81.187.116/32",
+                "35.212.128.85/32",
+                "2603:c024:4514:9b20:34:1fe2:f727:89e0/128",
+                "2603:c024:4514:9b20:0:be4f:9f1a:6a03/128",
+                "2607:f130:0:167::9211:6d57/128",
+                "2604:2dc0:202:300::7f9/128"
+            ],
+            "route_exclude_address_set": "geoip-cn",
+            "dns_mode": "hijack"
+        },
+        {
+            "type": "mixed",
+            "listen": "::",
+            "listen_port": 7890
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "proxy"
+            },
+            {
+                "ip_is_private": true,
+                "action": "bypass"
+            },
+            {
+                "action": "sniff"
+            },
+            {
+                "protocol": [
+                    "ssh",
+                    "bittorrent"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "rule_set": [
+                    "geosite-direct",
+                    "oracle",
+                    "amazon@cn",
+                    "apple-update",
+                    "apple-cn",
+                    "cn",
+                    "douyin"
+                ],
+                "outbound": "direct"
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "geosite-direct",
+                "type": "inline",
+                "rules": [
+                    {
+                        "domain_suffix": [
+                            "656525.xyz",
+                            "501388.xyz",
+                            "665080.xyz",
+                            "xmlys.de",
+                            "edu101.com",
+                            "nino.nyc.mn",
+                            "wud.de5.net",
+                            "zyz.hidns.co"
+                        ],
+                        "domain_keyword": [
+                            "netcup"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tag": [
+                    "cn",
+                    "oracle",
+                    "amazon@cn",
+                    "apple-update",
+                    "apple-cn",
+                    "douyin"
+                ],
+                "type": "remote",
+                "format": "binary",
+                "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/{tag}.srs"
+            },
+            {
+                "tag": "geoip-cn",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs"
+            }
+        ],
+        "default_domain_resolver": "local",
+        "default_http_client": "direct_client",
+        "auto_detect_interface": true,
+        "final": "proxy"
+    },
+    "services": [
+        {
+            "type": "api",
+            "listen": "::",
+            "listen_port": 9999,
+            "secret": "",
+            "dashboard": {
+                "enabled": true,
+                "download_url": "https://proxy.501388.xyz/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip"
+            }
+        }
+    ],
+    "http_clients": [
+        {
+            "tag": "direct_client"
+        }
+    ],
+    "experimental": {
+        "clash_api": {
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://proxy.501388.xyz/https://github.com/Zephyruso/zashboard/archive/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "default_mode": "rule"
+        },
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true,
+            "store_dns": true
+        }
+    }
+}
