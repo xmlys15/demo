@@ -64,6 +64,8 @@
                     "geosite-amazon@cn",
                     "geosite-apple@cn",
                     "geosite-apple-update",
+                    "geosite-microsoft@cn",
+                    "geosite-steam@cn",
                     "geosite-cn"
                 ],
                 "server": "local"
@@ -71,8 +73,8 @@
             {
                 "rule_set": [
                     "geosite-category-ai-!cn",
-                    "geosite-google",
                     "geosite-github",
+                    "geosite-google",
                     "geosite-geolocation-!cn"
                 ],
                 "server": "fakeip"
@@ -244,14 +246,6 @@
                 "outbound": "direct"
             },
             {
-                "clash_mode": "Direct",
-                "outbound": "direct"
-            },
-            {
-                "clash_mode": "Global",
-                "outbound": "proxy"
-            },
-            {
                 "ip_is_private": true,
                 "outbound": "direct"
             },
@@ -260,6 +254,14 @@
                     "bittorrent"
                 ],
                 "outbound": "direct"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "proxy"
             },
             {
                 "rule_set": [
@@ -282,6 +284,8 @@
                     "geosite-amazon@cn",
                     "geosite-apple@cn",
                     "geosite-apple-update",
+                    "geosite-microsoft@cn",
+                    "geosite-steam@cn",
                     "geosite-cn"
                 ],
                 "outbound": "direct"
@@ -340,7 +344,9 @@
                     "geosite-oracle",
                     "geosite-amazon@cn",
                     "geosite-apple@cn",
-                    "geosite-apple-update"
+                    "geosite-apple-update",
+                    "geosite-microsoft@cn",
+                    "geosite-steam@cn"
                 ],
                 "type": "remote",
                 "format": "binary",
