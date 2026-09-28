@@ -9,19 +9,13 @@
             {
                 "tag": "google",
                 "type": "https",
-                "server": "dns.google",
-                "domain_resolver": "hosts",
+                "server": "8.8.8.8",
                 "detour": "proxy"
             },
             {
-                "tag": "hosts",
-                "type": "hosts",
-                "predefined": {
-                    "dns.google": [
-                        "8.8.8.8",
-                        "8.8.4.4"
-                    ]
-                }
+                "tag": "alidns",
+                "type": "https",
+                "server": "223.5.5.5"
             },
             {
                 "tag": "fakeip",
@@ -41,35 +35,25 @@
             },
             {
                 "rule_set": [
+                    "geosite-category-ai-!cn",
+                    "geosite-google",
+                    "geosite-github",
+                    "geosite-geolocation-!cn"
+                ],
+                "server": "fakeip"
+            },
+            {
+                "rule_set": [
                     "geosite-direct",
                     "geosite-douyin",
                     "geosite-oracle",
                     "geosite-amazon@cn",
                     "geosite-apple@cn",
                     "geosite-apple-update",
-                    "geosite-microsoft@cn"
-                ],
-                "server": "local"
-            },
-            {
-                "rule_set": [
-                    "geosite-category-ai-!cn",
-                    "geosite-google",
-                    "geosite-github"
-                ],
-                "server": "fakeip"
-            },
-            {
-                "rule_set": [
+                    "geosite-microsoft@cn",
                     "geosite-cn"
                 ],
                 "server": "local"
-            },
-            {
-                "rule_set": [
-                    "geosite-geolocation-!cn"
-                ],
-                "server": "fakeip"
             },
             {
                 "type": "logical",
@@ -94,7 +78,7 @@
             {
                 "match_response": true,
                 "rule_set": "geoip-cn",
-                "server": "local"
+                "server": "alidns"
             },
             {
                 "query_type": [
@@ -148,7 +132,16 @@
                 "action": "sniff"
             },
             {
-                "protocol": "dns",
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "protocol": "dns"
+                    },
+                    {
+                        "port": 53
+                    }
+                ],
                 "action": "hijack-dns"
             },
             {

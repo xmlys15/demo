@@ -10,19 +10,13 @@
             {
                 "tag": "google",
                 "type": "https",
-                "server": "dns.google",
-                "domain_resolver": "hosts",
+                "server": "8.8.8.8",
                 "detour": "proxy"
             },
             {
-                "tag": "hosts",
-                "type": "hosts",
-                "predefined": {
-                    "dns.google": [
-                        "8.8.8.8",
-                        "8.8.4.4"
-                    ]
-                }
+                "tag": "alidns",
+                "type": "https",
+                "server": "223.5.5.5"
             },
             {
                 "tag": "fakeip",
@@ -52,9 +46,19 @@
                 "domain_suffix": [
                     "lan",
                     "local",
-                    "arpa"
+                    "in-addr.arpa",
+                    "ip6.arpa"
                 ],
                 "server": "local"
+            },
+            {
+                "rule_set": [
+                    "geosite-category-ai-!cn",
+                    "geosite-github",
+                    "geosite-google",
+                    "geosite-geolocation-!cn"
+                ],
+                "server": "fakeip"
             },
             {
                 "rule_set": [
@@ -69,15 +73,6 @@
                     "geosite-cn"
                 ],
                 "server": "local"
-            },
-            {
-                "rule_set": [
-                    "geosite-category-ai-!cn",
-                    "geosite-github",
-                    "geosite-google",
-                    "geosite-geolocation-!cn"
-                ],
-                "server": "fakeip"
             },
             {
                 "type": "logical",
@@ -102,7 +97,7 @@
             {
                 "match_response": true,
                 "rule_set": "geoip-cn",
-                "server": "local"
+                "server": "alidns"
             },
             {
                 "query_type": [
@@ -251,6 +246,7 @@
             },
             {
                 "protocol": [
+                    "ssh",
                     "bittorrent"
                 ],
                 "outbound": "direct"
@@ -265,12 +261,6 @@
             },
             {
                 "rule_set": [
-                    "geosite-direct"
-                ],
-                "outbound": "direct"
-            },
-            {
-                "rule_set": [
                     "geosite-category-ai-!cn",
                     "geosite-google",
                     "geosite-github"
@@ -279,6 +269,7 @@
             },
             {
                 "rule_set": [
+                    "geosite-direct",
                     "geosite-douyin",
                     "geosite-oracle",
                     "geosite-amazon@cn",
