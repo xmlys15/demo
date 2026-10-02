@@ -263,7 +263,8 @@
                 "rule_set": [
                     "geosite-category-ai-!cn",
                     "geosite-google",
-                    "geosite-github"
+                    "geosite-github",
+                    "geosite-geolocation-!cn"
                 ],
                 "outbound": "proxy"
             },
